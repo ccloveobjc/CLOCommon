@@ -51,8 +51,9 @@ Pod::Spec.new do |s|
     # ss.libraries           = "stdc++"
     # ss.pod_target_xcconfig = { "CLANG_CXX_LANGUAGE_STANDARD" => "c++14" }
   end
-  # s.subspec 'UI' do |ss|
-  #   ss.dependency       'CLSCommon/Core'
-  #   ss.source_files        = "Classes/UI/**/*.{swift}"
-  # end
+  s.subspec 'UI' do |ss|
+    ss.frameworks          = "UIKit"
+    ss.dependency            'CLOCommon/Core'
+    ss.source_files        = "Classes/UI/**/*.{h,m,mm,hpp,cpp,c}"
+  end
 end
