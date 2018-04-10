@@ -19,3 +19,5 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 #import <CLOCommon/CLOLogMgr.h>
 
 #import <CLOCommon/CLOPathHelper.h>
+
+#import <CLOCommon/CLOBlockHelper.h>

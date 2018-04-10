@@ -15,6 +15,7 @@ FOUNDATION_EXPORT double CLOCommonUIVersionNumber;
 FOUNDATION_EXPORT const unsigned char CLOCommonUIVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CLOCommon/PublicHeader.h>
+#import <CLOCommon/CLOCommonCore.h>
 
 #import <CLOCommon/CLOColorHelper.h>
 
