@@ -16,4 +16,10 @@
  */
 + (NSString *)sGetDocumentDirectoryPath;
 
+/**
+ 获取 app library 路径
+
+ @return 路径
+ */
++ (NSString *)sGetLibraryDirectoryPath;
 @end
