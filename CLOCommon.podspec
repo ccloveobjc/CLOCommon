@@ -56,4 +56,10 @@ Pod::Spec.new do |s|
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/UI/**/*.{h,m,mm,hpp,cpp,c}"
   end
+  s.subspec 'WCDB' do |ss|
+    ss.frameworks          = "UIKit"
+    ss.dependency            'CLOCommon/Core'
+    ss.dependency            'WCDB', '~>1.0'
+    ss.source_files        = "Classes/WCDB/**/*.{h,m,mm,hpp,cpp,c}"
+  end
 end
