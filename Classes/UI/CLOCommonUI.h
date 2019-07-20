@@ -20,3 +20,5 @@ FOUNDATION_EXPORT const unsigned char CLOCommonUIVersionString[];
 #import <CLOCommon/CLOColorHelper.h>
 
 #import <CLOCommon/CLOPositionHelper.h>
+
+#import <CLOCommon/UIViewController+CLOStoryboard.h>
