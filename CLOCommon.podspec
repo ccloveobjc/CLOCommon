@@ -55,7 +55,6 @@ Pod::Spec.new do |s|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/UI/**/*.{h,m,mm,hpp,cpp,c}"
-                             "Classes/UI/Categories/**/*.{h,m,mm,hpp,cpp,c}"
   end
   s.subspec 'WCDB' do |ss|
     ss.frameworks          = "UIKit"
