@@ -1,6 +1,6 @@
 //
-//  CLOLogMgr.h
-//  CLOAlbum
+//  CLOLogHelper.h
+//  CLOCommon
 //
 //  Created by Cc on 2018/1/6.
 //
@@ -22,7 +22,7 @@
 
 //输出日志
 #if kSDKLog == 1
-    #define SDKLogT(title,fmt, ...) [CLOLogMgr sSDKssLog:_cmd \
+    #define SDKLogT(title,fmt, ...) [CLOLogHelper sSDKssLog:_cmd \
                                                                                                                 object:self \
                                                                                                                 file:[NSString stringWithUTF8String:__FILE__] \
                                                                                                                 lineNumber:__LINE__ \
@@ -38,7 +38,7 @@
 
 //错误时断言，并输出日志
 #if kSDKErrorLog == 1
-    #define SDKErrorLog(fmt, ...) [CLOLogMgr sSDKErrorsLog:_cmd \
+    #define SDKErrorLog(fmt, ...) [CLOLogHelper sSDKErrorsLog:_cmd \
                                                                                                                     object:self \
                                                                                                                     file:[NSString stringWithUTF8String:__FILE__] \
                                                                                                                     lineNumber:__LINE__ \
@@ -55,7 +55,7 @@
         __PRAGMA_PUSH_NO_EXTRA_ARG_WARNINGS \
         if (!(condition)) { \
         if (desc.length > 0) { \
-        [CLOLogMgr sSDKErrorsLog:_cmd \
+        [CLOLogHelper sSDKErrorsLog:_cmd \
         object:self \
         file:[NSString stringWithUTF8String:__FILE__] \
         lineNumber:__LINE__ \
@@ -82,7 +82,7 @@
 
 #define SDKAssertAndBreak SDKAssert;break;
 
-@interface CLOLogMgr : NSObject
+@interface CLOLogHelper : NSObject
 
 /**
  *  设置 YES 开始日志，默认YES
@@ -90,7 +90,6 @@
  *  ⚠️： kSDKLog ＝ 1 kSDKErrorLog ＝1 kSDKAssertionLog ＝ 1 的时候才会起效
  */
 + (void)sSetupLogStatus:(BOOL)state;
-+ (void)sSetupXcodeColorsEnable:(BOOL)enable;
 + (void)sSetupLogUsePrintf:(BOOL)enable;
 
 

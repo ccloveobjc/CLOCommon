@@ -21,6 +21,8 @@
                         __strong __typeof__(x) x = x##_weak_; \
                         _Pragma("clang diagnostic pop")
 
+#define CLOWS CLOWeakify(self);
+#define CLOSS CLOStrongify(self);
 
 @interface CLOBlockHelper : NSObject
 

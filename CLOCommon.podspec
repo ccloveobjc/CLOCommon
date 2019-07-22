@@ -44,6 +44,8 @@ Pod::Spec.new do |s|
 
   s.default_subspec     = 'Core'
 
+
+
   s.subspec 'Core' do |ss|
     ss.frameworks          = "UIKit"
     ss.source_files        = "Classes/Core/**/*.{h,m,mm,hpp,cpp,c}"
@@ -51,6 +53,17 @@ Pod::Spec.new do |s|
     # ss.libraries           = "stdc++"
     # ss.pod_target_xcconfig = { "CLANG_CXX_LANGUAGE_STANDARD" => "c++14" }
   end
+  s.subspec 'Json' do |ss|
+    ss.frameworks          = "UIKit"
+    ss.dependency            'CLOCommon/Core'
+    ss.source_files        = "Classes/Json/**/*.{h,m,mm,hpp,cpp,c}"
+  end
+  s.subspec 'Crypt' do |ss|
+    ss.frameworks          = "UIKit"
+    ss.dependency            'CLOCommon/Core'
+    ss.source_files        = "Classes/Crypt/**/*.{h,m,mm,hpp,cpp,c}"
+  end
+  # ================================== Core 分界线 =====================================================
   s.subspec 'UI' do |ss|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/Core'

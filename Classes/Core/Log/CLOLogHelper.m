@@ -1,11 +1,11 @@
 //
-//  CLOLogMgr.m
-//  CLOAlbum
+//  CLOLogHelper.m
+//  CLOCommon
 //
 //  Created by Cc on 2018/1/6.
 //
 
-#import "CLOLogMgr.h"
+#import "CLOLogHelper.h"
 #import <mach/mach.h>
 
 #if kSDKLog == 1
@@ -29,42 +29,16 @@
 #endif
 
 
-#define XCODE_COLORS_ESCAPE @"\033["
-
-#define XCODE_COLORS_RESET_FG  XCODE_COLORS_ESCAPE @"fg;" // Clear any foreground color
-#define XCODE_COLORS_RESET_BG  XCODE_COLORS_ESCAPE @"bg;" // Clear any background color
-#define XCODE_COLORS_RESET     XCODE_COLORS_ESCAPE @";"   // Clear any foreground or background color
-
-
 static BOOL sLogStatus = YES;
-static BOOL sXcodeColorsEnable = NO;
 static BOOL sLogUsePrintfEnable = NO;
 
-@implementation CLOLogMgr
+@implementation CLOLogHelper
 
 + (void)sSetupLogStatus:(BOOL)state
 {
     sLogStatus = state;
 }
-+ (void)sSetupXcodeColorsEnable:(BOOL)enable
-{
-    sXcodeColorsEnable = enable;
-    if (enable) {
-        
-        NSLog(XCODE_COLORS_ESCAPE @"fg220,0,0;"
-              XCODE_COLORS_ESCAPE @"bg255,255,255;"
-              @"                                         "
-              XCODE_COLORS_RESET);
-        NSLog(XCODE_COLORS_ESCAPE @"fg220,0,0;"
-              XCODE_COLORS_ESCAPE @"bg255,255,255;"
-              @"            XCodeColors enable !         "
-              XCODE_COLORS_RESET);
-        NSLog(XCODE_COLORS_ESCAPE @"fg220,0,0;"
-              XCODE_COLORS_ESCAPE @"bg255,255,255;"
-              @"                                         "
-              XCODE_COLORS_RESET);
-    }
-}
+
 + (void)sSetupLogUsePrintf:(BOOL)enable
 {
     sLogUsePrintfEnable = enable;
@@ -109,27 +83,13 @@ static BOOL sLogUsePrintfEnable = NO;
 + (void)sSDKPrintLog:(NSString *)strDesc withColor:(NSString *)strColor
 {
     BOOL isUsePrintf = NO;
-    if (sXcodeColorsEnable) {
+    if (sLogUsePrintfEnable) {
         
-        if (sLogUsePrintfEnable) {
-            
-            isUsePrintf = YES;
-        }
-        else {
-            
-            NSLog(XCODE_COLORS_ESCAPE @"fg%@;" @"%@" XCODE_COLORS_RESET, strColor, strDesc);
-        }
+        isUsePrintf = YES;
     }
     else {
         
-        if (sLogUsePrintfEnable) {
-            
-            isUsePrintf = YES;
-        }
-        else {
-            
-            NSLog(@"%@", strDesc);
-        }
+        NSLog(@"%@", strDesc);
     }
     
     if (isUsePrintf) {

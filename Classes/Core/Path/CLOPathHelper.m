@@ -1,6 +1,6 @@
 //
 //  CLOPathHelper.m
-//  CLOAlbum
+//  CLOCommon
 //
 //  Created by Cc on 2018/1/13.
 //

@@ -16,8 +16,6 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CLOCommon/PublicHeader.h>
 
-#import <CLOCommon/CLOLogMgr.h>
-
-#import <CLOCommon/CLOPathHelper.h>
-
 #import <CLOCommon/CLOBlockHelper.h>
+#import <CLOCommon/CLOLogHelper.h>
+#import <CLOCommon/CLOPathHelper.h>
