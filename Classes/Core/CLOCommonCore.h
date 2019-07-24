@@ -16,6 +16,12 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CLOCommon/PublicHeader.h>
 
+#define CLODeprecated               DEPRECATED_ATTRIBUTE
+#define CLODesignatedInitializer    NS_DESIGNATED_INITIALIZER
+#define CLOTargetIphoneSimulator    TARGET_IPHONE_SIMULATOR
+
 #import <CLOCommon/CLOBlockHelper.h>
 #import <CLOCommon/CLOLogHelper.h>
 #import <CLOCommon/CLOPathHelper.h>
+
+#import <CLOCommon/CLOSize.h>
