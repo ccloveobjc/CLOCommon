@@ -9,12 +9,12 @@
 
 @implementation CLOPathHelper
 
-+ (NSString *)sGetDocumentDirectoryPath
++ (NSString *)getDocumentDirectoryPath
 {
     return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
 }
 
-+ (NSString *)sGetLibraryDirectoryPath
++ (NSString *)getLibraryDirectoryPath
 {
     return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];
 }

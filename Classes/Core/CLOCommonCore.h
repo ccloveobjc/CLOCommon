@@ -25,3 +25,15 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 #import <CLOCommon/CLOPathHelper.h>
 
 #import <CLOCommon/CLOSize.h>
+
+#import <CLOCommon/NSArray+CLOCommonCore.h>
+#import <CLOCommon/NSData+CLOConvertToHex.h>
+#import <CLOCommon/NSDictionary+CLOCommonCore.h>
+#import <CLOCommon/NSError+CLOCommonCore.h>
+#import <CLOCommon/NSFileManager+CLOCommonCoreicloud.h>
+#import <CLOCommon/NSMutableData+CLOCommonCoreArchiver.h>
+#import <CLOCommon/NSObject+CLOCommonCore.h>
+#import <CLOCommon/NSSet+CLOCommonCore.h>
+#import <CLOCommon/NSString+CLOCommonCore.h>
+#import <CLOCommon/NSThread+CLOCommonCore.h>
+

@@ -63,6 +63,11 @@ Pod::Spec.new do |s|
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/Crypt/**/*.{h,m,mm,hpp,cpp,c}"
   end
+  s.subspec 'Networking' do |ss|
+    ss.frameworks          = "UIKit"
+    ss.dependency            'CLOCommon/Core'
+    ss.source_files        = "Classes/Networking/**/*.{h,m,mm,hpp,cpp,c}"
+  end
   # ================================== Core 分界线 =====================================================
   s.subspec 'UI' do |ss|
     ss.frameworks          = "UIKit"
@@ -72,7 +77,7 @@ Pod::Spec.new do |s|
   s.subspec 'WCDB' do |ss|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/Core'
-    ss.dependency            'WCDB', '~>1.0'
+    ss.dependency            'WCDB'
     ss.source_files        = "Classes/WCDB/**/*.{h,m,mm,hpp,cpp,c}"
   end
 end

@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 #if DEBUG
     #define CLO_keywordify autoreleasepool{}
 #else
@@ -27,6 +29,8 @@
 @interface CLOBlockHelper : NSObject
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 /*
      As a local variable:

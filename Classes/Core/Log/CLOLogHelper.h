@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 #ifdef DEBUG
     #define kSDKLog             1
     #define kSDKErrorLog        1
@@ -110,3 +112,5 @@
            withFormat:(nonnull NSString *)format, ... NS_FORMAT_FUNCTION(6,7);
 
 @end
+
+NS_ASSUME_NONNULL_END

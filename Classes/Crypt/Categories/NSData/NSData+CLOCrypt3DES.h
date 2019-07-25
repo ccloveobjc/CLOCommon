@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (CLOCrypt3DES)
 
-- (nullable NSData *)c_CLOEncrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv;
-- (nullable NSData *)c_CLODecrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv;
+- (nullable NSData *)CLOEncrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv;
+- (nullable NSData *)CLODecrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv;
 
 @end
 

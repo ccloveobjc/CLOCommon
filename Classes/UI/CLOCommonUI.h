@@ -18,8 +18,13 @@ FOUNDATION_EXPORT const unsigned char CLOCommonUIVersionString[];
 
 #import <CLOCommon/CLOCommonCore.h>
 
-#import <CLOCommon/CLOColorHelper.h>
 #import <CLOCommon/CLOPositionHelper.h>
 
-#import <CLOCommon/UIViewController+CLOStoryboard.h>
+#import <CLOCommon/NSString+CLOCommonUIHex.h>
+#import <CLOCommon/UIAlertController+CLOCommonUI.h>
+#import <CLOCommon/UIColor+CLOCommonUI.h>
+#import <CLOCommon/UIImage+CLOCommonUI.h>
+#import <CLOCommon/UIImagePickerController+CLOCommonUI.h>
+#import <CLOCommon/UIView+CLOCommonUI.h>
 #import <CLOCommon/UIView+CLOLayout.h>
+#import <CLOCommon/UIViewController+CLOStoryboard.h>

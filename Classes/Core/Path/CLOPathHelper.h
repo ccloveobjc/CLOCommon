@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface CLOPathHelper : NSObject
 
 /**
@@ -14,12 +16,14 @@
 
  @return 路径
  */
-+ (NSString *)sGetDocumentDirectoryPath;
++ (NSString *)getDocumentDirectoryPath;
 
 /**
  获取 app library 路径
 
  @return 路径
  */
-+ (NSString *)sGetLibraryDirectoryPath;
++ (NSString *)getLibraryDirectoryPath;
 @end
+
+NS_ASSUME_NONNULL_END

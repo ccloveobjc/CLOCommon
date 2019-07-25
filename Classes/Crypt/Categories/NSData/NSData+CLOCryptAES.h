@@ -13,12 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSData (CLOCryptAES)
 
 /* 256加密 */
-- (nullable NSData *)c_CLOEncrypt256WithPassword:(NSString *)password;
-- (nullable NSData *)c_CLODecrypt256WithPassword:(NSString *)password;
+- (nullable NSData *)CLOEncrypt256WithPassword:(NSString *)password;
+- (nullable NSData *)CLODecrypt256WithPassword:(NSString *)password;
 
 /* 128加密 */
-- (nullable NSData *)c_CLOEncrypt128WithPassword:(NSString*)password;
-- (nullable NSData *)c_CLODecrypt128WithPassword:(NSString*)password;
+- (nullable NSData *)CLOEncrypt128WithPassword:(NSString*)password;
+- (nullable NSData *)CLODecrypt128WithPassword:(NSString*)password;
 
 @end
 

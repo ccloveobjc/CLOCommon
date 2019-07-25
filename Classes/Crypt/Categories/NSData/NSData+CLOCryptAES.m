@@ -8,11 +8,11 @@
 
 #import "NSData+CLOCryptAES.h"
 #import <CommonCrypto/CommonCryptor.h>
-#import "CLOLogHelper.h"
+#import <CLOCommon/CLOCommonCore.h>
 
 @implementation NSData (CLOCryptAES)
 
-- (NSData *)c_CLOEncrypt256WithPassword:(NSString *)password
+- (NSData *)CLOEncrypt256WithPassword:(NSString *)password
 {
     NSData *encryptedData = nil;
     
@@ -56,7 +56,7 @@
     return encryptedData;
 }
 
-- (NSData *)c_CLODecrypt256WithPassword:(NSString *)password
+- (NSData *)CLODecrypt256WithPassword:(NSString *)password
 {
     NSData *decryptedData = nil;
     if ([password isKindOfClass:[NSString class]]) {
@@ -99,7 +99,7 @@
     return decryptedData;
 }
 
-- (NSData *)c_CLOEncrypt128WithPassword:(NSString *)password
+- (NSData *)CLOEncrypt128WithPassword:(NSString *)password
 {
     NSData *encryptedData = nil;
     
@@ -143,7 +143,7 @@
     return encryptedData;
 }
 
-- (NSData *)c_CLODecrypt128WithPassword:(NSString *)password
+- (NSData *)CLODecrypt128WithPassword:(NSString *)password
 {
     NSData *decryptedData = nil;
     

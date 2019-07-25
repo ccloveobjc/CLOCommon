@@ -11,7 +11,7 @@
 
 @implementation NSData (CLOCryptMD5)
 
-- (NSString *)c_CLOEncryptWithMD5
+- (NSString *)CLOEncryptWithMD5
 {
     NSData *sData = self;
 //    const char *cStr = sData.bytes;

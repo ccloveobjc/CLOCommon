@@ -10,6 +10,6 @@
 
 @interface NSData (CLOCryptMD5)
 
-- (nonnull NSString*)c_CLOEncryptWithMD5;
+- (nonnull NSString*)CLOEncryptWithMD5;
 
 @end

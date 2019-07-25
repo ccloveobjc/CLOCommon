@@ -18,7 +18,6 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCryptVersionString[];
 
 #import <CLOCommon/CLOCommonCore.h>
 
-#import <CLOCommon/NSData+CLOConvertToHex.h>
 #import <CLOCommon/NSData+CLOCrypt3DES.h>
 #import <CLOCommon/NSData+CLOCryptAES.h>
 #import <CLOCommon/NSData+CLOCryptMD5.h>

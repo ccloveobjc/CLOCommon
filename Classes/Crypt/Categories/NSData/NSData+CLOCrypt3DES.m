@@ -8,11 +8,11 @@
 
 #import "NSData+CLOCrypt3DES.h"
 #import <CommonCrypto/CommonCryptor.h>
-#import "CLOLogHelper.h"
+#import <CLOCommon/CLOCommonCore.h>
 
 @implementation NSData (CLOCrypt3DES)
 
-- (NSData *)c_CLOEncrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv
+- (NSData *)CLOEncrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv
 {
     NSData *encryptedData = nil;
     
@@ -64,7 +64,7 @@
     return encryptedData;
 }
 
-- (NSData *)c_CLODecrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv
+- (NSData *)CLODecrypt3DESWithKey:(NSString *)oKey withIv:(NSString*)oIv
 {
     NSData *encryptedData = nil;
     
