@@ -37,3 +37,5 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 #import <CLOCommon/NSString+CLOCommonCore.h>
 #import <CLOCommon/NSThread+CLOCommonCore.h>
 
+#import <CLOCommon/CLOSyncMutableArray.h>
+#import <CLOCommon/CLOSyncMutableDictionary.h>
