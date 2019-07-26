@@ -38,8 +38,8 @@ UIAlertController *vc = [UIAlertController CLOGotAlertController:@{
  @return 对象
  */
 + (instancetype)CLOGotAlertController:(NSDictionary *)titleParams
-                         withOkParams:(NSDictionary *)okParams
-                     withCancelParams:(NSDictionary *)cancelParams;
+                         withOkParams:(nullable NSDictionary *)okParams
+                     withCancelParams:(nullable NSDictionary *)cancelParams;
 
 @end
 

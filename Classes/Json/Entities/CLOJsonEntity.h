@@ -41,10 +41,9 @@ typedef NS_ENUM(NSUInteger, eCLOJsonStretagy) {
 
     /**
      * 返回一个规则 如果定义了 mJsn_status 属性必须在字典中定义
-     *
+     *  使用 mJsn_status 来定义
      *  return @{
-     *      CLOJsonStretagy(@"status", [NSNumber class], eCLOJsonStretagyNonull)
-     *      , CLOJsonStretagy(@"message", [NSString class], eCLOJsonStretagyNonull)
+     *      CLOJsonStretagy(@"status", [NSNumber class], eCLOJsonStretagyNonull,  [NSNumber class])
      *  }
      */
     + (NSDictionary *)sGotJsonStrategy;

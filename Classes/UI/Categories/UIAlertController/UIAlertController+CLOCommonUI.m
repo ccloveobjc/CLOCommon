@@ -12,8 +12,8 @@
 @implementation UIAlertController (CLOCommonUI)
 
 + (instancetype)CLOGotAlertController:(NSDictionary *)titleParams
-                         withOkParams:(NSDictionary *)okParams
-                     withCancelParams:(NSDictionary *)cancelParams
+                         withOkParams:(nullable NSDictionary *)okParams
+                     withCancelParams:(nullable NSDictionary *)cancelParams
 {
     NSString *title = titleParams[@"title"];
     NSString *msg = titleParams[@"msg"];
