@@ -160,4 +160,18 @@
     return nil;
 }
 
++ (NSString *)JSONStringWithDictionary:(NSDictionary *)json
+{
+    NSData *dataJson = [self JSONDataWithDictionary:json];
+    if (dataJson) {
+    
+        NSString *aString = [[NSString alloc] initWithData:dataJson encoding:NSUTF8StringEncoding];
+        return aString;
+    }
+    else {
+        
+        SDKErrorLog(@"json != Json");
+    }
+    return nil;
+}
 @end

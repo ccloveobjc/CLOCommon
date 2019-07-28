@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable NSArray *)JSONObjectWithArrayData:(NSData *)data;
 
++ (nullable NSString *)JSONStringWithDictionary:(NSDictionary *)json;
+
 @end
 
 NS_ASSUME_NONNULL_END

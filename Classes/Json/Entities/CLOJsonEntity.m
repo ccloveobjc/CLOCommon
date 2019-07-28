@@ -393,7 +393,7 @@
                     return nil;
                 }
             }
-            else if ([stre.mJsonClassType isSubclassOfClass:[CLOJsonEntity class]]) {
+            else if ([stre.mJsonClassType isSubclassOfClass:[NSDictionary class]]) {
                 
                 if ([value isKindOfClass:[CLOJsonEntity class]]) {
                     
@@ -565,6 +565,7 @@
 
 + (NSDictionary<NSString *,CLOJsonStretagyEntity *> *)c_CDS_onDB2Json
 {
+    return [self.class sGotJsonStrategy];
     SDKAssertionLog(NO, @"子类实现");
     return nil;
 }
