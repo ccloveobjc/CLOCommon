@@ -566,8 +566,8 @@
 + (NSDictionary<NSString *,CLOJsonStretagyEntity *> *)c_CDS_onDB2Json
 {
     return [self.class sGotJsonStrategy];
-    SDKAssertionLog(NO, @"子类实现");
-    return nil;
+//    SDKAssertionLog(NO, @"子类实现");
+//    return nil;
 }
 
 
