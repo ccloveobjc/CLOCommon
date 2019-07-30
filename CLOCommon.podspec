@@ -85,4 +85,9 @@ Pod::Spec.new do |s|
     ss.dependency            'WCDB'
     ss.source_files        = "Classes/WCDB/**/*.{h,m,mm,hpp,cpp,c}"
   end
+  s.subspec 'Image' do |ss|
+    ss.frameworks          = "UIKit", "Metal", "MetalKit", "CoreGraphics"
+    ss.dependency            'CLOCommon/Core'
+    ss.source_files        = "Classes/Image/**/*.{h,m,mm,hpp,cpp,c}"
+  end
 end
