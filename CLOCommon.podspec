@@ -47,10 +47,10 @@ Pod::Spec.new do |s|
 
 
   s.subspec 'Core' do |ss|
-    ss.frameworks          = "UIKit"
+    ss.frameworks          = "UIKit", "Foundation"
     ss.source_files        = "Classes/Core/**/*.{h,m,mm,hpp,cpp,c}"
     # ss.exclude_files       = "**/__tests__/*", "IntegrationTests/*"
-    # ss.libraries           = "stdc++"
+    # ss.libraries           = "stdc++", "z"
     # ss.pod_target_xcconfig = { "CLANG_CXX_LANGUAGE_STANDARD" => "c++14" }
   end
   s.subspec 'Json' do |ss|
@@ -62,6 +62,7 @@ Pod::Spec.new do |s|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/Crypt/**/*.{h,m,mm,hpp,cpp,c}"
+    ss.libraries           = 'iconv','sqlite3','stdc++','z'
   end
   s.subspec 'Networking' do |ss|
     ss.frameworks          = "UIKit"
@@ -86,7 +87,7 @@ Pod::Spec.new do |s|
     ss.source_files        = "Classes/WCDB/**/*.{h,m,mm,hpp,cpp,c}"
   end
   s.subspec 'Image' do |ss|
-    ss.frameworks          = "UIKit", "Metal", "MetalKit", "CoreGraphics"
+    ss.frameworks          = "Metal", "MetalKit", "CoreGraphics"
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/Image/**/*.{h,m,mm,hpp,cpp,c}"
   end
