@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
     ss.source_files        = "Classes/WCDB/**/*.{h,m,mm,hpp,cpp,c}"
   end
   s.subspec 'Image' do |ss|
-    ss.frameworks          = "Metal", "MetalKit", "CoreGraphics"
+    ss.frameworks          = "Metal", "MetalKit", "CoreGraphics", "CoreVideo"
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/Image/**/*.{h,m,mm,hpp,cpp,c}"
   end
