@@ -13,9 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *)CLOImageWithMTLTexture:(id<MTLTexture>)texture;
 
-+ (UIImage *)CLOxxxxxx:(id<MTLTexture>)texture;
+//+ (UIImage *)CLOxxxxxx:(id<MTLTexture>)texture;
 
-+ (CVPixelBufferRef)CLOxx:(id<MTLTexture>)texture;
++ (CVPixelBufferRef)CLOMTLTextureToPixelBuffer:(id<MTLTexture>)texture;
+
 @end
 
 NS_ASSUME_NONNULL_END

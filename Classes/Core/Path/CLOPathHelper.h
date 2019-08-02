@@ -16,14 +16,43 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return 路径
  */
-+ (NSString *)getDocumentDirectoryPath;
++ (NSString *)CLOGotDocumentDirectoryPath;
 
 /**
  获取 app library 路径
 
  @return 路径
  */
-+ (NSString *)getLibraryDirectoryPath;
++ (NSString *)CLOGotLibraryDirectoryPath;
+
++ (BOOL)CLOFileExists:(NSString *)filenamePath;
+
++ (BOOL)CLOFileExistsURL:(NSURL *)filenamePath;
+
++ (BOOL)CLOCreateFile:(NSData *)data andPath:(NSString *)path;
+
++ (BOOL)CLORemoveFile:(NSString *)filePath;
+
++ (BOOL)CLODirectoryExists:(NSString *)dirPath;
+
++ (BOOL)CLODirectoryExistsURL:(NSURL *)dirUrl;
+
++ (BOOL)CLOCreateDirectory:(NSString *)dirPath;
+
++ (BOOL)CLOCreateDirectoryURL:(NSURL *)dirUrl;
+
++ (BOOL)CLORemoveDirectory:(NSString *)dirPath;
+
++ (BOOL)CLORemoveDirectoryURL:(NSURL *)dirPath;
+
++ (BOOL)CLOCopyFile:(NSString *)from To:(NSString *)to;
+
++ (BOOL)CLOCopyImageFile:(NSString *)from To:(NSString *)to;
+
++ (BOOL)CLOCopyItemURL:(NSURL *)from To:(NSURL *)to;
+
++ (BOOL)CLOAddSkipBackupAttributeToItemAtFilePath:(NSString *)filePath;
+
 @end
 
 NS_ASSUME_NONNULL_END
