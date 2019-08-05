@@ -9,7 +9,7 @@
 
 @implementation CLODeviceHelper
 
-- (NSString *)gotIdentifierForVendor
++ (NSString *)gotIdentifierForVendor
 {
     return [[UIDevice currentDevice].identifierForVendor UUIDString];
 }

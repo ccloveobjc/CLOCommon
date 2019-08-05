@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CLODeviceHelper : NSObject
 
-- (NSString *)gotIdentifierForVendor;
++ (NSString *)gotIdentifierForVendor;
 
 @end
 
