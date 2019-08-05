@@ -61,6 +61,10 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
 
 + (UIImage *)CLOxxxxxx:(id<MTLTexture>)texture
 {
+#if TARGET_IPHONE_SIMULATOR
+    SDKAssert;
+    return nil;
+#else
     NSUInteger width = texture.width;
     NSUInteger height = texture.height;
     
@@ -100,10 +104,16 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     CFRelease(textureCache);
     
     return fpsImg;
+    
+#endif
 }
 
 + (CVPixelBufferRef)CLOMTLTextureToPixelBuffer:(id<MTLTexture>)texture
 {
+#if TARGET_IPHONE_SIMULATOR
+    SDKAssert;
+    return nil;
+#else
     id<MTLTexture> unityTexture = texture;
     NSUInteger width = texture.width;
     NSUInteger height = texture.height;
@@ -143,6 +153,7 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     CFRelease(outTexture);
     
     return pxbuffer;
+#endif
 }
 
 + (CGImageRef)CLOConvertRGB888ToRGBA8888WithCGImageRef:(CGImageRef)cgImage

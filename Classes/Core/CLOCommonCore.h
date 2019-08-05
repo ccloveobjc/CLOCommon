@@ -21,10 +21,6 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 #define CLOTargetIphoneSimulator    TARGET_IPHONE_SIMULATOR
 
 #import <CLOCommon/CLOBlockHelper.h>
-#import <CLOCommon/CLOLogHelper.h>
-#import <CLOCommon/CLOPathHelper.h>
-
-#import <CLOCommon/CLOSize.h>
 
 #import <CLOCommon/NSArray+CLOCommonCore.h>
 #import <CLOCommon/NSData+CLOConvertToHex.h>
@@ -37,5 +33,14 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 #import <CLOCommon/NSString+CLOCommonCore.h>
 #import <CLOCommon/NSThread+CLOCommonCore.h>
 
+#import <CLOCommon/CLODeviceHelper.h>
+
+#import <CLOCommon/CLOSize.h>
+
+#import <CLOCommon/CLOLogHelper.h>
+
+#import <CLOCommon/CLOPathHelper.h>
+
 #import <CLOCommon/CLOSyncMutableArray.h>
+
 #import <CLOCommon/CLOSyncMutableDictionary.h>
