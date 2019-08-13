@@ -91,4 +91,9 @@ Pod::Spec.new do |s|
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/Image/**/*.{h,m,mm,hpp,cpp,c}"
   end
+  s.subspec 'Debug' do |ss|
+    ss.frameworks          = "UIKit"
+    ss.dependency            'CLOCommon/UI'
+    ss.source_files        = "Classes/Debug/**/*.{h,m,mm,hpp,cpp,c}"
+  end
 end

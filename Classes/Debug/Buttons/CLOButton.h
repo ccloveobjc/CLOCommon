@@ -16,6 +16,10 @@ typedef void (^tCLOButtonClick)(id sender);
 
 - (instancetype)initWithFrame:(CGRect)frame withTitle:(NSString *)strTitle withClick:(tCLOButtonClick)clickBlock;
 
+- (void)setupTitle:(NSString *)strTitle;
+
+- (void)setupClickBlock:(tCLOButtonClick)block;
+
 @end
 
 NS_ASSUME_NONNULL_END

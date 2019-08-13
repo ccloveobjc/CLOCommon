@@ -10,7 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define CLOColorMake(r, g, b, a) [CLOColorHelper fColorRed:(r) withGreen:(g) withBlue:(b) withAlpha:(a)]
+#define CLOHexMake(hex, alp) [UIColor CLOGotColorByHex:hex withAlpha:alp]
+#define CLOColorMake(r, g, b, a) [UIColor CLOColorRed:(r) withGreen:(g) withBlue:(b) withAlpha:(a)]
 
 @interface UIColor (CLOCommonUI)
 

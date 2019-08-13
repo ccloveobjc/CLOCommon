@@ -25,11 +25,11 @@
         _mNormalColor = [UIColor blueColor];
         _mHighlightedColor = [UIColor brownColor];
         
-        [self setTitle:strTitle forState:UIControlStateNormal];
+        [self setupTitle:strTitle];
         [self setTitleColor:_mNormalColor forState:(UIControlStateNormal)];
         [self setTitleColor:_mHighlightedColor forState:(UIControlStateHighlighted)];
         [self addTarget:self action:@selector(onClick:) forControlEvents:(UIControlEventTouchUpInside)];
-        self.mClickBlock = clickBlock;
+        [self setupClickBlock:clickBlock];
         
         //设置边框的颜色
         [self.layer setBorderColor:_mNormalColor.CGColor];
@@ -43,6 +43,16 @@
         
     }
     return self;
+}
+
+- (void)setupTitle:(NSString *)strTitle
+{
+    [self setTitle:strTitle forState:UIControlStateNormal];
+}
+
+- (void)setupClickBlock:(tCLOButtonClick)block
+{
+    self.mClickBlock = block;
 }
 
 - (void)dealloc
