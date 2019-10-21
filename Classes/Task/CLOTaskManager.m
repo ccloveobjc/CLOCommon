@@ -106,7 +106,7 @@
 /* 插入任务 */
 - (void)pInsertOperation:(CLOTaskOperation *)queue
 {
-    SDKLog(@"插入任务 pInsertOperation:");
+//    SDKLog(@"插入任务 pInsertOperation:");
     
     [queue.mOperationTask onInit];
     [self.mArrFlowOperation pAddObject:queue];
@@ -116,7 +116,7 @@
 {
     if (self.mArrFlowOperation.mStashObject) {
         
-        SDKLog(@"停止当前任务 pStopCurrentOperationAndInsert:");
+//        SDKLog(@"停止当前任务 pStopCurrentOperationAndInsert:");
         [self.mArrFlowOperation.mStashObject pCancel];
     }
     
@@ -144,7 +144,7 @@
                     break;
                 case eCLOTaskStatusComplete: {
                     
-                    SDKLog(@"任务完成 ePGWorkflowStatus_complete");
+//                    SDKLog(@"任务完成 ePGWorkflowStatus_complete");
                 }
                     break;
                     
