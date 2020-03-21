@@ -13,11 +13,13 @@
 - (CGFloat)gotItemHeight
 {
     SDKAssert;
+    return 0;
 }
 
 + (Class)gotCellCalss
 {
     SDKAssert;
+    return nil;
 }
 
 + (NSString *)gotCellName
