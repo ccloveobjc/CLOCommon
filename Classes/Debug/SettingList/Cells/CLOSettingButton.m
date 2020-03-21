@@ -30,6 +30,8 @@
 @end
 @implementation CLOSettingButton
 
+@synthesize mEntity;
+
 - (void)setupEntity:(__kindof CLOSettingEntity *)entity
 {
     [super setupEntity:entity];

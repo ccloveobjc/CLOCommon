@@ -30,6 +30,8 @@
 @end
 @implementation CLOSettingBool
 
+@synthesize mEntity;
+
 - (void)setupEntity:(__kindof CLOSettingEntity *)entity
 {
     [super setupEntity:entity];
