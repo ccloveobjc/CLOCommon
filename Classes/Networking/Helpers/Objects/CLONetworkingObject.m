@@ -16,7 +16,7 @@
     if (self) {
         
         _mUrlPath = nil;
-        _mEumHttpMethod = ePg_sdk_common_networking_method_post;
+        _mEumHttpMethod = eCLONetworkingMethod_POST;
         _mDicParams = nil;
         _mBolAsycn = YES;
         _mFltTimeoutInterval = 30.0;

@@ -75,7 +75,7 @@
         
         NSMutableURLRequest *request = nil;
         NSString *strBody = [self fGotParamsStringByDictionary:params];
-        if (postParam.mEumHttpMethod == ePg_sdk_common_networking_method_get)
+        if (postParam.mEumHttpMethod == eCLONetworkingMethod_GET)
         {
             NSString *strNUrl = [NSString stringWithFormat:@"%@?%@", url, strBody];
             NSURL *nUrl = [NSURL URLWithString:strNUrl];
@@ -179,7 +179,7 @@
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
         {
             NSString *strBody = [self fGotParamsStringByDictionary:params];
-            request.HTTPMethod = postParam.mEumHttpMethod == ePg_sdk_common_networking_method_get ? @"GET" : @"POST";
+            request.HTTPMethod = postParam.mEumHttpMethod == eCLONetworkingMethod_GET ? @"GET" : @"POST";
             request.HTTPBody = [strBody dataUsingEncoding:NSUTF8StringEncoding];
             request.timeoutInterval = postParam.mFltTimeoutInterval;
         }

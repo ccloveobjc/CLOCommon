@@ -15,11 +15,11 @@
     typedef void (^bCLONetworkingDownloadProgress)(int64_t location, int64_t dataLenght);
 
 
-    typedef NS_ENUM(NSUInteger, ePg_sdk_common_networking_method) {
+    typedef NS_ENUM(NSUInteger, eCLONetworkingMethod) {
         /* Post */
-        ePg_sdk_common_networking_method_post = 0,
+        eCLONetworkingMethod_POST = 0,
         /* Get */
-        ePg_sdk_common_networking_method_get,
+        eCLONetworkingMethod_GET,
     };
 
 @interface CLONetworkingObject : NSObject
@@ -31,7 +31,7 @@
     @property (nonatomic,strong) NSDictionary<NSString *, NSString *> *mDicParams;
 
     /** default = POST */
-    @property (nonatomic,assign) ePg_sdk_common_networking_method mEumHttpMethod;
+    @property (nonatomic,assign) eCLONetworkingMethod mEumHttpMethod;
 
     /** 是否异步，default = YES */
     @property (nonatomic,assign) BOOL mBolAsycn;
