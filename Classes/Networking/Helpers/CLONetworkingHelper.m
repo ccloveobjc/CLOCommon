@@ -47,7 +47,7 @@
         else {
             
             _mOQueue = [[NSOperationQueue alloc] init];
-            _mOQueue.name = [@"com.pinguo.pg_sdk_common.networking." stringByAppendingString:[NSUUID UUID].UUIDString];
+            _mOQueue.name = [@"com.ccloveobjc.networking." stringByAppendingString:[NSUUID UUID].UUIDString];
         }
         
         
@@ -60,7 +60,12 @@
     return self;
 }
 
-- (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bPgSdkCommonNetworking)block
+- (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bCLONetworkingFinish)block
+{
+    [self pRequest:postParam withHeader:nil withFinish:block];
+}
+
+- (void)pRequest:(CLONetworkingObject *)postParam withHeader:(NSDictionary<NSString *, NSString  *> *)headers withFinish:(bCLONetworkingFinish)block
 {
     NSURL *url = postParam.mUrlPath;
     NSDictionary<NSString *, NSString *> *params = postParam.mDicParams;
@@ -68,16 +73,36 @@
     
     if (url) {
         
-        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+        NSMutableURLRequest *request = nil;
+        NSString *strBody = [self fGotParamsStringByDictionary:params];
+        if (postParam.mEumHttpMethod == ePg_sdk_common_networking_method_get)
         {
-            NSString *strBody = [self fGotParamsStringByDictionary:params];
-            request.HTTPMethod = postParam.mEumHttpMethod == ePg_sdk_common_networking_method_get ? @"GET" : @"POST";
+            NSString *strNUrl = [NSString stringWithFormat:@"%@?%@", url, strBody];
+            NSURL *nUrl = [NSURL URLWithString:strNUrl];
+            request = [[NSMutableURLRequest alloc] initWithURL:nUrl];
+            request.HTTPMethod = @"GET";
+        }
+        else
+        {
+            request = [[NSMutableURLRequest alloc] initWithURL:url];
+            request.HTTPMethod = @"POST";
             request.HTTPBody = [strBody dataUsingEncoding:NSUTF8StringEncoding];
-            request.timeoutInterval = postParam.mFltTimeoutInterval;
+        }
+        request.timeoutInterval = postParam.mFltTimeoutInterval;
+        
+        // 如果有header 添加
+        if (headers)
+        {
+            for (int ir = 0; ir < headers.allKeys.count; ir ++) {
+                
+                NSString *iKey = headers.allKeys[ir];
+                NSString *iValue = headers[iKey];
+                [request setValue:iValue forHTTPHeaderField:iKey];
+            }
         }
         
         NSURLSessionTask *cTask = nil;
-        dispatch_semaphore_t sem;
+        dispatch_semaphore_t sem = nil;
         
         if (!isAsycn) {
             
@@ -142,8 +167,8 @@
 }
 
 - (void)pRequestDownload:(CLONetworkingObject *)postParam
-              withFinish:(bPgSdkCommonNetworkingDownload)finish
-            withProgress:(bPgSdkCommonNetworkingDownloadProgress)progress
+              withFinish:(bCLONetworkingDownload)finish
+            withProgress:(bCLONetworkingDownloadProgress)progress
 {
     NSURL *url = postParam.mUrlPath;
     NSDictionary<NSString *, NSString *> *params = postParam.mDicParams;
@@ -162,7 +187,7 @@
         
         
         NSURLSessionTask *cTask = nil;
-        dispatch_semaphore_t sem;
+        dispatch_semaphore_t sem = nil;
         
         if (!isAsycn) {
             

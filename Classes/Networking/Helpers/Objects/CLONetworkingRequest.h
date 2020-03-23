@@ -16,9 +16,9 @@
 
     @property (nonatomic) CLONetworkingObject *mObjParam;
 
-    @property (nonatomic,copy) bPgSdkCommonNetworkingDownload mBlock_Finish;
+    @property (nonatomic,copy) bCLONetworkingDownload mBlock_Finish;
 
-    @property (nonatomic,copy) bPgSdkCommonNetworkingDownloadProgress mBlock_Progress;
+    @property (nonatomic,copy) bCLONetworkingDownloadProgress mBlock_Progress;
 
 #ifdef DEBUG
     @property (nonatomic) NSString *mDebug_UUID;

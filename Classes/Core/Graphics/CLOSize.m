@@ -14,7 +14,8 @@
     self = [super init];
     if (self) {
         
-        CGSizeMake(1, 1);
+        _width = 0;
+        _height = 0;
     }
     return self;
 }

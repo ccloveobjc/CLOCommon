@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-    typedef void (^bPgSdkCommonNetworking)(NSData *data, NSURLResponse *response, NSError *err);
+    typedef void (^bCLONetworkingFinish)(NSData *data, NSURLResponse *response, NSError *err);
 
-    typedef void (^bPgSdkCommonNetworkingDownload)(NSURL * location, NSURLResponse * response, NSError * err);
+    typedef void (^bCLONetworkingDownload)(NSURL * location, NSURLResponse * response, NSError * err);
 
-    typedef void (^bPgSdkCommonNetworkingDownloadProgress)(int64_t location, int64_t dataLenght);
+    typedef void (^bCLONetworkingDownloadProgress)(int64_t location, int64_t dataLenght);
 
 
     typedef NS_ENUM(NSUInteger, ePg_sdk_common_networking_method) {

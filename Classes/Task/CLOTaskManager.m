@@ -64,7 +64,7 @@
     self = [super init];
     if (self) {
         
-        _mStrThreadName = name ? name : @"com.pinguo.pg_sdk_common_task_default";
+        _mStrThreadName = name ? name : @"com.clo.clocommon_task_default";
         _mArrFlowOperation = [[CLOSyncMutableArray alloc] init];
     }
     

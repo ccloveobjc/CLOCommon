@@ -15,10 +15,14 @@
 - (instancetype)initWithQueue:(NSOperationQueue *)queue;
 
 
-- (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bPgSdkCommonNetworking)block;
+- (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bCLONetworkingFinish)block;
+
+- (void)pRequest:(CLONetworkingObject *)postParam
+      withHeader:(NSDictionary<NSString *, NSString  *> *)headers
+      withFinish:(bCLONetworkingFinish)block;
 
 - (void)pRequestDownload:(CLONetworkingObject *)postParam
-              withFinish:(bPgSdkCommonNetworkingDownload)block
-            withProgress:(bPgSdkCommonNetworkingDownloadProgress)progress;
+              withFinish:(bCLONetworkingDownload)block
+            withProgress:(bCLONetworkingDownloadProgress)progress;
 
 @end
