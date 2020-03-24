@@ -22,6 +22,11 @@
         eCLONetworkingMethod_GET,
     };
 
+typedef NS_ENUM(NSUInteger, eCLONetworkingContentType) {
+    eCLONetworkingContentType_Text, //text/plain
+    eCLONetworkingContentType_Json  //application/json
+};
+
 @interface CLONetworkingObject : NSObject
 
     /** URL  default = nil*/
@@ -30,8 +35,14 @@
     /** URL  default = nil*/
     @property (nonatomic,strong) NSDictionary<NSString *, NSString *> *mDicParams;
 
+    /** URL  default = nil*/
+    @property (nonatomic,strong) NSDictionary<NSString *, NSString *> *mDicHeaders;
+
     /** default = POST */
     @property (nonatomic,assign) eCLONetworkingMethod mEumHttpMethod;
+
+    /** default = eCLONetworkingContentType_Text */
+    @property (nonatomic) eCLONetworkingContentType mEumContentType;
 
     /** 是否异步，default = YES */
     @property (nonatomic,assign) BOOL mBolAsycn;

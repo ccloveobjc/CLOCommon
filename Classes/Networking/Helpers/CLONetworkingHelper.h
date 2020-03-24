@@ -17,12 +17,13 @@
 
 - (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bCLONetworkingFinish)block;
 
-- (void)pRequest:(CLONetworkingObject *)postParam
-      withHeader:(NSDictionary<NSString *, NSString  *> *)headers
-      withFinish:(bCLONetworkingFinish)block;
-
 - (void)pRequestDownload:(CLONetworkingObject *)postParam
               withFinish:(bCLONetworkingDownload)block
             withProgress:(bCLONetworkingDownloadProgress)progress;
+
+
+- (void)pRequest:(CLONetworkingObject *)postParam
+      withFinish:(bCLONetworkingFinish)block
+    withProgress:(bCLONetworkingDownloadProgress)progress;
 
 @end

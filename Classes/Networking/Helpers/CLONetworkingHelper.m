@@ -9,6 +9,7 @@
 #import "CLONetworkingHelper.h"
 #import "CLONetworkingRequest.h"
 #import <CLOCommon/CLOCommonCore.h>
+#import <CLOCommon/CLOCommonJson.h>
 
 @interface CLONetworkingHelper ()
 <
@@ -62,11 +63,6 @@
 
 - (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bCLONetworkingFinish)block
 {
-    [self pRequest:postParam withHeader:nil withFinish:block];
-}
-
-- (void)pRequest:(CLONetworkingObject *)postParam withHeader:(NSDictionary<NSString *, NSString  *> *)headers withFinish:(bCLONetworkingFinish)block
-{
     NSURL *url = postParam.mUrlPath;
     NSDictionary<NSString *, NSString *> *params = postParam.mDicParams;
     BOOL isAsycn = postParam.mBolAsycn;
@@ -91,6 +87,7 @@
         request.timeoutInterval = postParam.mFltTimeoutInterval;
         
         // 如果有header 添加
+        NSDictionary *headers = postParam.mDicHeaders;
         if (headers)
         {
             for (int ir = 0; ir < headers.allKeys.count; ir ++) {
@@ -328,7 +325,128 @@
     }
 }
 
-#pragma makr - NSURLSessionDataDelegate
+- (void)pRequest:(CLONetworkingObject *)postParam
+      withFinish:(bCLONetworkingFinish)block
+    withProgress:(bCLONetworkingDownloadProgress)progress
+{
+    NSURL *url = postParam.mUrlPath;
+    NSDictionary<NSString *, NSString *> *params = postParam.mDicParams;
+    BOOL isAsycn = postParam.mBolAsycn;
+    
+    if (url) {
+        
+        NSMutableURLRequest *request = [self fGetURLRequest:postParam];
+       
+        NSURLSessionTask *cTask = nil;
+        dispatch_semaphore_t sem = nil;
+        
+        if (!isAsycn) {
+            
+            SDKLog(@"!! < dispatch_semaphore_create > !!")
+            sem = dispatch_semaphore_create(0);
+        }
+        
+#if DEBUG
+        NSString *keyUUID = [NSUUID UUID].UUIDString;
+#endif
+        
+        SDKLog(@"[%@] <%@> 请求 url:%@  params:%@", request.HTTPMethod, keyUUID, url, params)
+        cTask = [self.mSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            SDKLog(@"[%@] <%@> 收到数据 %@ string = %@"
+                   , request.HTTPMethod
+                   , keyUUID
+                   , @(data.length)
+                   , [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding])
+            
+            if (block) {
+                
+                block(data, response, error);
+            }
+            
+            if (!isAsycn) {
+                
+                SDKLog(@"!! < dispatch_semaphore_signal > !!")
+                dispatch_semaphore_signal(sem);
+            }
+        }];
+        
+        if (cTask) {
+            
+            SDKLog(@"开启任务[%@]", @(cTask.taskIdentifier));
+            [cTask resume];
+            
+            if (!isAsycn) {
+                
+                SDKLog(@"!! < dispatch_semaphore_wait > !!")
+                dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+            }
+        }
+        else {
+            
+            SDKAssert
+            if (block) {
+                
+                block(nil, nil, CLOErrorMake(@"CLOCommon", -404, @"参数错误"));
+            }
+        }
+    }
+    else {
+        
+        if (block) {
+            
+            block(nil, nil, CLOErrorMake(@"CLOCommon", -404, @"参数错误"));
+        }
+        SDKAssertionLog(NO, @"URL 为空");
+    }
+}
+
+#pragma mark - 获取Requset
+- (NSMutableURLRequest *)fGetURLRequest:(CLONetworkingObject *)postParam
+{
+    NSMutableURLRequest *request = nil;
+    NSURL *url = postParam.mUrlPath;
+    NSString *strBody = [self fGotParamsStringByDictionary:postParam.mDicParams];
+    NSString *strNUrl = [NSString stringWithFormat:@"%@?%@", url.absoluteString, strBody];
+    NSURL *nUrl = [NSURL URLWithString:strNUrl];
+    request = [[NSMutableURLRequest alloc] initWithURL:nUrl];
+    
+    
+    switch (postParam.mEumContentType) {
+        case eCLONetworkingContentType_Text:
+        {
+            request.HTTPBody = [strBody dataUsingEncoding:NSUTF8StringEncoding];
+            [request setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
+            
+        }break;
+        case eCLONetworkingContentType_Json:
+        {
+            request.HTTPBody = [NSJSONSerialization JSONDataWithDictionary:postParam.mDicParams];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        }break;
+            
+        default:
+            SDKAssert;
+            return nil;
+    }
+    // 如果有header 添加
+    NSDictionary *headers = postParam.mDicHeaders;
+    if (request && headers)
+    {
+        for (int ir = 0; ir < headers.allKeys.count; ir ++) {
+            
+            NSString *iKey = headers.allKeys[ir];
+            NSString *iValue = headers[iKey];
+            [request setValue:iValue forHTTPHeaderField:iKey];
+        }
+    }
+    
+    request.HTTPMethod = postParam.mEumHttpMethod == eCLONetworkingMethod_GET ? @"GET" : @"POST";
+    request.timeoutInterval = postParam.mFltTimeoutInterval;
+    return request;
+}
+
+#pragma mark - NSURLSessionDataDelegate
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location
 {

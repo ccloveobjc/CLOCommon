@@ -12,7 +12,7 @@
 
 @implementation NSDictionary (CLOCommonCore)
 
-- (instancetype)CLOGotValueForKey:(id)key withClass:(Class)cls
+- (id)CLOGotValueForKey:(id)key withClass:(Class)cls
 {
     if (key && cls) {
         

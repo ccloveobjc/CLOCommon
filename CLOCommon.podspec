@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
   s.default_subspec     = 'Core'
 
 
-
+  # ================================== Core 分界线 =====================================================
   s.subspec 'Core' do |ss|
     ss.frameworks          = "UIKit", "Foundation"
     ss.source_files        = "Classes/Core/**/*.{h,m,mm,hpp,cpp,c}"
@@ -53,6 +53,7 @@ Pod::Spec.new do |s|
     # ss.libraries           = "stdc++", "z"
     # ss.pod_target_xcconfig = { "CLANG_CXX_LANGUAGE_STANDARD" => "c++14" }
   end
+  # ================================== 需要引用Core 分界线 =====================================================
   s.subspec 'Json' do |ss|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/Core'
@@ -64,12 +65,6 @@ Pod::Spec.new do |s|
     ss.source_files        = "Classes/Crypt/**/*.{h,m,mm,hpp,cpp,c}"
     ss.libraries           = 'iconv','sqlite3','stdc++','z'
   end
-  s.subspec 'Networking' do |ss|
-    ss.frameworks          = "UIKit"
-    ss.dependency            'CLOCommon/Core'
-    ss.source_files        = "Classes/Networking/**/*.{h,m,mm,hpp,cpp,c}"
-  end
-  # ================================== Core 分界线 =====================================================
   s.subspec 'UI' do |ss|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/Core'
@@ -91,9 +86,15 @@ Pod::Spec.new do |s|
     ss.dependency            'CLOCommon/Core'
     ss.source_files        = "Classes/Image/**/*.{h,m,mm,hpp,cpp,c}"
   end
+  # ================================== 需要引用第二层 分界线 =====================================================
   s.subspec 'Debug' do |ss|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/UI'
     ss.source_files        = "Classes/Debug/**/*.{h,m,mm,hpp,cpp,c}"
+  end
+  s.subspec 'Networking' do |ss|
+    ss.frameworks          = "UIKit"
+    ss.dependency            'CLOCommon/Core'
+    ss.source_files        = "Classes/Networking/**/*.{h,m,mm,hpp,cpp,c}"
   end
 end

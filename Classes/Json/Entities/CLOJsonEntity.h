@@ -57,11 +57,11 @@ typedef NS_ENUM(NSUInteger, eCLOJsonStretagy) {
 - (instancetype)initWithJSON:(NSDictionary *)json NS_DESIGNATED_INITIALIZER;
 
 
+// 获取当前classType类有多少 mJsn_ 开头的属性，这些属性将翻译
 - (NSDictionary<NSString *, NSString *> *)gotJsnPropertiesNameByClass:(Class)classType;
 
 //                                                                                                                                                =
 // ======================  通过 json 转成 Entity ======================
-
 
 
 // ======================  通过 Entity 转成 json ======================

@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDictionary (CLOCommonCore)
 
-- (instancetype)CLOGotValueForKey:(id)key withClass:(Class)cls;
+- (id)CLOGotValueForKey:(id)key withClass:(Class)cls;
 
 - (NSString *)CLOGotStringForKey:(id)key;
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSNumber *)CLOGotNumberForKey:(id)key;
 
-- (instancetype)CLOGotDictionaryForKey:(nonnull id)key;
+- (NSDictionary *)CLOGotDictionaryForKey:(nonnull id)key;
 
 - (NSURL *)CLOGotURLForKey:(id)key;
 

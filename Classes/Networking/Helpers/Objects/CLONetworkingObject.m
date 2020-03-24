@@ -16,8 +16,10 @@
     if (self) {
         
         _mUrlPath = nil;
-        _mEumHttpMethod = eCLONetworkingMethod_POST;
         _mDicParams = nil;
+        _mDicHeaders = nil;
+        _mEumHttpMethod = eCLONetworkingMethod_POST;
+        _mEumContentType = eCLONetworkingContentType_Text;
         _mBolAsycn = YES;
         _mFltTimeoutInterval = 30.0;
     }
