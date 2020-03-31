@@ -406,21 +406,21 @@
 {
     NSMutableURLRequest *request = nil;
     NSURL *url = postParam.mUrlPath;
-    NSString *strBody = [self fGotParamsStringByDictionary:postParam.mDicParams];
-    NSString *strNUrl = [NSString stringWithFormat:@"%@?%@", url.absoluteString, strBody];
-    NSURL *nUrl = [NSURL URLWithString:strNUrl];
-    request = [[NSMutableURLRequest alloc] initWithURL:nUrl];
-    
     
     switch (postParam.mEumContentType) {
         case eCLONetworkingContentType_Text:
         {
+            NSString *strBody = [self fGotParamsStringByDictionary:postParam.mDicParams];
+            NSString *strNUrl = [NSString stringWithFormat:@"%@?%@", url.absoluteString, strBody];
+            NSURL *nUrl = [NSURL URLWithString:strNUrl];
+            request = [[NSMutableURLRequest alloc] initWithURL:nUrl];
             request.HTTPBody = [strBody dataUsingEncoding:NSUTF8StringEncoding];
             [request setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
             
         }break;
         case eCLONetworkingContentType_Json:
         {
+            request = [[NSMutableURLRequest alloc] initWithURL:url];
             request.HTTPBody = [NSJSONSerialization JSONDataWithDictionary:postParam.mDicParams];
             [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         }break;

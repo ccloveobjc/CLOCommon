@@ -49,7 +49,5 @@
         }];
         [self.contentView addSubview:self.mCLOButton];
     }
-    @CLOWS
-    
 }
 @end

@@ -83,14 +83,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param strText 文字
  @return 图片
  */
-- (nullable UIImage *)CLOWriteWords:(NSString *)strText;
+- (nullable UIImage *)CLOWriteWords:(NSString *)strText CG_AVAILABLE_BUT_DEPRECATED(10.0, 10.9, 2.0, 7.0);
 
 
 /**
  获取buffer 的 RGBA 格式的Data
 
  @param sampleBuffer 预览帧
- @return NSData
  */
 + (void)CLOGotBytesFromSampleBuffer:(CMSampleBufferRef)sampleBuffer withBlock:(void (^)(unsigned char *pData, int w, int h))block;
 

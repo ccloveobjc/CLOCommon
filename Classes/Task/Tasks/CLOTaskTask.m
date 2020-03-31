@@ -133,13 +133,6 @@
             }
         };
         // 任务结束
-        
-        // 插桩
-        if ([self dgTask_step_isCancel])
-        {
-            self.meTaskStatus = eCLOTaskStatusCancel;
-            return;
-        }
     };
     
     self.meTaskStatus = eCLOTaskStatusComplete;

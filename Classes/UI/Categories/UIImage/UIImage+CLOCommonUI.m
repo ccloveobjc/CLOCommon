@@ -170,7 +170,7 @@ double cppCLORadiansToDegrees(double radians)
 {
     CGAffineTransform transform = CGAffineTransformIdentity;
     
-    int iOrien = self.imageOrientation;
+    UIImageOrientation iOrien = self.imageOrientation;
     switch (iOrien)
     {
         case UIImageOrientationUp:

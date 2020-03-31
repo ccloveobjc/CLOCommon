@@ -12,6 +12,7 @@
     @class CLOTaskTask;
     @class CLOTaskOperation;
 
+typedef void (^bCLOCommonTaskFinish)(BOOL);
 
 NS_ASSUME_NONNULL_BEGIN
 /**
@@ -35,9 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /** 开始任务队列循环执行 */
 - (void)pStart;
+- (void)pStart:(nullable bCLOCommonTaskFinish)block;
 
 /** 结束任务队列循环执行，如果需要销毁本实例，需要调用这个接口后再设置 nil */
 - (void)pStop;
+- (void)pStop:(nullable bCLOCommonTaskFinish)block;
 
 /** 插入任务 */
 - (void)pInsertOperation:(__kindof CLOTaskOperation *)queue;

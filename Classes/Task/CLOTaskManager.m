@@ -13,10 +13,12 @@
 
 @interface CLOTaskManager ()
 
-    // 线程名字
-    @property (nonatomic,strong) NSString *mStrThreadName;
-    @property (nonatomic,strong) NSThread *mFlowThread;
-    @property (nonatomic,strong) CLOSyncMutableArray<__kindof CLOTaskOperation *> *mArrFlowOperation;
+// 线程名字
+@property (nonatomic,strong) NSString *mStrThreadName;
+@property (nonatomic,strong) NSThread *mFlowThread;
+@property (nonatomic,strong) CLOSyncMutableArray<__kindof CLOTaskOperation *> *mArrFlowOperation;
+@property (nonatomic, copy) bCLOCommonTaskFinish mStartBlock;
+@property (nonatomic, copy) bCLOCommonTaskFinish mStopBlock;
 
 @end
 @implementation CLOTaskManager
@@ -36,7 +38,7 @@
 
 /* 获取一个 Operation */
 + (CLOTaskOperation *)sGotNormalQueue:(__kindof CLOTaskTask *)task
-                                     withIdentify:(__kindof NSObject *)obj
+                         withIdentify:(__kindof NSObject *)obj
 {
     CLOTaskOperation *op = nil;
     
@@ -73,11 +75,18 @@
 
 - (void)dealloc
 {
-    SDKLog(@"dealloc");
+//    SDKLog(@"dealloc");
+    self.mStartBlock = nil;
+    self.mStopBlock = nil;
 }
 
 - (void)pStart
 {
+    [self pStart:nil];
+}
+- (void)pStart:(bCLOCommonTaskFinish)block
+{
+    self.mStartBlock = block;
     if (!self.mFlowThread) {
         
         @synchronized (self) {
@@ -91,8 +100,14 @@
         }
     }
 }
+
 - (void)pStop
 {
+    [self pStop:nil];
+}
+- (void)pStop:(bCLOCommonTaskFinish)block
+{
+    self.mStopBlock = block;
     if (self.mFlowThread) {
         
         @synchronized (self) {
@@ -120,11 +135,19 @@
         [self.mArrFlowOperation.mStashObject pCancel];
     }
     
-    [self pInsertOperation:queue];
+    if (queue) {
+        
+        [self pInsertOperation:queue];
+    }
 }
 
 - (void)onFlowThread
 {
+    if (self.mStartBlock) {
+        
+        self.mStartBlock(YES);
+    }
+    
     do {
         
         CLOTaskOperation *op = [self.mArrFlowOperation pGotStashObject];
@@ -154,8 +177,13 @@
         }
         
         [NSThread sleepForTimeInterval:0.01f];
-        //Cc: 永不结束，永不停止，人在塔在！
+        //Cc: 永不结束，永不停止，人在塔在！看情况嘛！
     } while (![[NSThread currentThread] isCancelled]);
+    
+    if (self.mStopBlock) {
+        
+        self.mStopBlock(YES);
+    }
 }
 
 @end
