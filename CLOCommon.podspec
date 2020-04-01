@@ -98,6 +98,7 @@ Pod::Spec.new do |s|
   s.subspec 'Networking' do |ss|
     ss.frameworks          = "UIKit"
     ss.dependency            'CLOCommon/Core'
+    ss.dependency            'CLOCommon/Json'
     ss.source_files        = "Classes/Networking/**/*.{h,m,mm,hpp,cpp,c}"
   end
 end

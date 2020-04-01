@@ -7,6 +7,7 @@
 
 #import <CLOCommon/CLOCommonUI.h>
 #import "CLOSettingButton.h"
+#import "CLOButton.h"
 
 @implementation CLOSettingButtonEntity
 

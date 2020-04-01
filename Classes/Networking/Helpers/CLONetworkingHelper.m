@@ -470,7 +470,11 @@
         
         SDKLog(@"[%@] <%@> 进度报告：数据 URL = %@ ； %@/%@"
                , downloadTask.currentRequest.HTTPMethod
+#ifdef DEBUG
                , keyObj.mDebug_UUID
+#else
+               , @"(release null)"
+#endif
                , keyObj.mObjParam.mUrlPath
                , @(totalBytesWritten)
                , @(totalBytesExpectedToWrite));

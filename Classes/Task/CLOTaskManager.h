@@ -12,7 +12,7 @@
     @class CLOTaskTask;
     @class CLOTaskOperation;
 
-typedef void (^bCLOCommonTaskFinish)(BOOL);
+typedef void (^bCLOCommonTaskFinish)(BOOL suc);
 
 NS_ASSUME_NONNULL_BEGIN
 /**
