@@ -8,6 +8,7 @@
 
 #import "NSArray+CLOCommonCore.h"
 #import "NSObject+CLOCommonCore.h"
+#import "CLOLogHelper.h"
 
 @implementation NSArray (CLOCommonCore)
 
@@ -56,7 +57,7 @@
         }
     }
     
-    NSLog(@"c_common_gotCGPoint 解析错误了!   self = %@", self);
+    SDKErrorLog(@"c_common_gotCGPoint 解析错误了!   self = %@", self);
     return CGPointZero;
 }
 
