@@ -1,6 +1,6 @@
 //
-//  pg_sdk_common_networking_object.h
-//  pg_sdk_common
+//  CLONetworkingObject.h
+//  CLOCommon
 //
 //  Created by Cc on 2016/11/28.
 //  Copyright © 2016年 PinguoSDK. All rights reserved.

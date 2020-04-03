@@ -1,6 +1,6 @@
 //
-//  pg_sdk_common_task_operation.m
-//  pg_sdk_common
+//  CLOTaskOperation.m
+//  CLOCommon
 //
 //  Created by Cc on 16/5/24.
 //  Copyright © 2016年 PinguoSDK. All rights reserved.

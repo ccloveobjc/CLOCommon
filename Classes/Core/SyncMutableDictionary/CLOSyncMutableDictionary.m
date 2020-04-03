@@ -1,6 +1,6 @@
 //
-//  pg_sdk_common_sync_mutable_dictionary.m
-//  pg_sdk_common
+//  CLOSyncMutableDictionary.m
+//  CLOCommon
 //
 //  Created by Cc on 16/8/10.
 //  Copyright © 2016年 PinguoSDK. All rights reserved.

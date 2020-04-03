@@ -1,6 +1,6 @@
 //
-//  NSThread+pg_common_unitils.h
-//  Pods
+//  NSThread+CLOCommonCore.h
+//  CLOCommon
 //
 //  Created by Cc on 15/11/13.
 //

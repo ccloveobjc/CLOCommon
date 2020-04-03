@@ -1,6 +1,6 @@
 //
-//  pg_sdk_common_sync_mutable_array.h
-//  pg_sdk_common
+//  CLOSyncMutableArray.h
+//  CLOCommon
 //
 //  Created by Cc on 16/5/24.
 //  Copyright © 2016年 PinguoSDK. All rights reserved.

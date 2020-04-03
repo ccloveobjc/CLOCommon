@@ -1,6 +1,6 @@
 //
-//  pg_sdk_common_task_manager.h
-//  pg_sdk_common
+//  CLOTaskManager.h
+//  CLOCommon
 //
 //  Created by Cc on 16/5/14.
 //  Copyright © 2016年 PinguoSDK. All rights reserved.

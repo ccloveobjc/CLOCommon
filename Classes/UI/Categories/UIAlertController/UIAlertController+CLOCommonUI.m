@@ -1,6 +1,6 @@
 //
-//  UIAlertController+pg_common.m
-//  Pods
+//  UIAlertController+CLOCommonUI.m
+//  CLOCommon
 //
 //  Created by Cc on 2017/7/8.
 //

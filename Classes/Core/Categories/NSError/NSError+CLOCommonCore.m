@@ -18,7 +18,7 @@
     }
     else {
         
-        [userInfo setObject:@"Code classtype [ePg_sdk_common_error_status_type]" forKey:NSLocalizedDescriptionKey];
+        [userInfo setObject:@"Code classtype [CLOCommon]" forKey:NSLocalizedDescriptionKey];
     }
     
     return userInfo;

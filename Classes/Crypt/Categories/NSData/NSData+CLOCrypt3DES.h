@@ -1,5 +1,5 @@
 //
-//  NSObject+CLOCrypt3DES.h
+//  NSData+CLOCrypt3DES.h
 //  CLOCommon
 //
 //  Created by Cc on 15/3/10.

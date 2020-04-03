@@ -9,7 +9,7 @@
 #import "NSString+CLOCommonUIHex.h"
 #import <CLOCommon/CLOCommonCore.h>
 
-@implementation NSString (pg_common_hex)
+@implementation NSString (CLOCommonUIHex)
 
 - (BOOL)CLOGotColorWithOutR:(NSUInteger *)oR withOutG:(NSUInteger *)oG withOutB:(NSUInteger *)oB
 {

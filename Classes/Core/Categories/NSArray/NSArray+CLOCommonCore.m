@@ -1,6 +1,6 @@
 //
-//  NSArray+PGUnitils.m
-//  pg_sdk_common
+//  NSArray+CLOCommonCore.m
+//  CLOCommon
 //
 //  Created by Cc on 14/12/9.
 //  Copyright (c) 2014年 PinguoSDK. All rights reserved.
