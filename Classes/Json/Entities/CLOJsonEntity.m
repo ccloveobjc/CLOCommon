@@ -137,7 +137,7 @@
                 || [cls isSubclassOfClass:[NSDictionary class]]
                 || [cls isSubclassOfClass:[NSArray class]]) {
                 
-                if (value) {
+                if (value && value != [NSNull null]) {
                     
                     if ([[value class] isSubclassOfClass:dicStre.mJsonClassType]) {
                         
@@ -246,7 +246,7 @@
                                     return NO;
                                 }
                             }
-                            if (arrT.count > 0) {
+                            if (arrT != nil) {
                                 
                                 [self setValue:arrT forKey:key];
                             }
@@ -341,7 +341,7 @@
                         }
                         else {
                         
-                            SelfAssert(@"没有值", sKey);
+                            SelfAssert(@"没有值 %@", sKey);
                             return NO;
                         }
                     }
