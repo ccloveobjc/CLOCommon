@@ -336,6 +336,7 @@
                         
                         if (dicStreValue.mEumStretagy == eCLOJsonStretagyNullable) {
                             
+                            [mutableDic setValue:[NSNull null] forKey:webKey];
                             continue;
                         }
                         else {
