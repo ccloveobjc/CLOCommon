@@ -51,6 +51,11 @@
     return nil;
 }
 
+- (void)dealloc
+{
+//    SDKLog(@"dealloc");
+}
+
 - (void)main
 {
     [self.mOperationTask pRunning];

@@ -78,6 +78,7 @@
 //    SDKLog(@"dealloc");
     self.mStartBlock = nil;
     self.mStopBlock = nil;
+    self.mArrFlowOperation = nil;
 }
 
 - (void)pStart

@@ -26,10 +26,10 @@
 >
 
 /* 回调对象，查询是否cancel了任务等等逻辑，放这里 */
-@property (nonatomic) id<CLOTaskStepDelegate> mDelegate;
+@property (nonatomic, weak) id<CLOTaskStepDelegate> mDelegate;
 
 /* 数据源 */
-@property (nonatomic) __kindof CLOTaskModel *mStepModel;
+@property (nonatomic, readonly) __kindof CLOTaskModel *mStepModel;
 
 
 - (instancetype)initWithModel:(CLOTaskModel *)model
