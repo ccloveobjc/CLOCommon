@@ -37,7 +37,7 @@
 {
     if ([str isKindOfClass:[NSString class]]) {
         
-        NSMutableString *mutableStr = [NSMutableString stringWithString:self];
+        NSMutableString *mutableStr = [[NSMutableString alloc] initWithString:self];
         [mutableStr replaceOccurrencesOfString:str
                                     withString:@""
                                        options:NSRegularExpressionSearch
@@ -118,6 +118,8 @@
                                                                         (CFStringRef)@"!*'();:@&=+$/?%#[]",
                                                                         kCFStringEncodingUTF8);
         NSString *outputStr = CFBridgingRelease(stringRef);
+        
+//        NSString *outputStr2 = [oriString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         return outputStr;
     }
     

@@ -35,6 +35,14 @@
     return self;
 }
 
+- (void)dealloc
+{
+    self.mDelegate = nil;
+    _mStepModel = nil;
+    self.mInputBlock = nil;
+    self.mOutputBlock = nil;
+}
+
 - (CLOTaskStepStatus)onGotTaskModel
 {
     if (self.mInputBlock) {

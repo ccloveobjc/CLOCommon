@@ -10,7 +10,7 @@
 
 @interface CLOSyncMutableArray<ObjectType> : NSObject
 
-    @property (nonatomic,strong) ObjectType mStashObject;
+    @property (nonatomic, strong) ObjectType mStashObject;
 
 /**
  *  ［线程安全］添加一个对象

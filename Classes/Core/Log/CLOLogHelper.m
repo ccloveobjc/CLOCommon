@@ -50,7 +50,7 @@ static BOOL sLogUsePrintfEnable = NO;
         
         NSString *strTitle = title.length > 0 ? title : @"SDK";
         
-        NSString *strDesc = [NSString stringWithFormat:@"[%@] %@     < %@ ? %@ : %@ > \n "
+        NSString *strDesc = [[NSString alloc] initWithFormat:@"[%@] %@     < %@ ? %@ : %@ > \n "
                              , strTitle
                              , desc
                              , [fileName lastPathComponent]
@@ -67,8 +67,8 @@ static BOOL sLogUsePrintfEnable = NO;
     if (sLogStatus) {
         
         NSString *strTitle = title.length > 0 ? title : @"SDK";
-        NSString *strErr = [NSString stringWithFormat:@"< Error > :\n\t\t\t%@ \n\t\t< Error >", desc];
-        NSString *strDesc = [NSString stringWithFormat:@"[%@]\n\t< %@ ? %@ : %@ >\n\t\t%@\n™\n "
+        NSString *strErr = [[NSString alloc] initWithFormat:@"< Error > :\n\t\t\t%@ \n\t\t< Error >", desc];
+        NSString *strDesc = [[NSString alloc] initWithFormat:@"[%@]\n\t< %@ ? %@ : %@ >\n\t\t%@\n™\n "
                              , strTitle
                              , [fileName lastPathComponent]
                              , @(line)
@@ -99,7 +99,7 @@ static BOOL sLogUsePrintfEnable = NO;
         if (mach_timebase_info(&info) == KERN_SUCCESS) {
             
             uint64_t start = mach_absolute_time ();
-            strTitle = [NSString stringWithFormat:@"%@ ... ", @(start)];
+            strTitle = [[NSString alloc] initWithFormat:@"%@ ... ", @(start)];
         }
         else {
             

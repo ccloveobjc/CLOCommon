@@ -107,7 +107,7 @@
 #ifdef DEBUG
 - (NSString *)description
 {
-    NSMutableString *mString = [NSMutableString stringWithFormat:@"%@ {\r\r",self.class];
+    NSMutableString *mString = [[NSMutableString alloc] initWithFormat:@"%@ {\r\r",self.class];
     [self descriptionInClass:[self class] space:1 withMutableString:mString];
     [mString appendString:@"\r}"];
     return mString;

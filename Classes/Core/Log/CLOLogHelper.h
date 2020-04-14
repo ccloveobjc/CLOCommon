@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 #if kSDKLog == 1
     #define SDKLogT(title,fmt, ...) [CLOLogHelper sSDKssLog:_cmd \
                                                                                                                 object:self \
-                                                                                                                file:[NSString stringWithUTF8String:__FILE__] \
+                                                                                                                file:[[NSString alloc] initWithUTF8String:__FILE__] \
                                                                                                                 lineNumber:__LINE__ \
                                                                                                                 withTitle:title \
                                                                                                                 withColor:nil \
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 #if kSDKErrorLog == 1
     #define SDKErrorLog(fmt, ...) [CLOLogHelper sSDKErrorsLog:_cmd \
                                                                                                                     object:self \
-                                                                                                                    file:[NSString stringWithUTF8String:__FILE__] \
+                                                                                                                    file:[[NSString alloc] initWithUTF8String:__FILE__] \
                                                                                                                     lineNumber:__LINE__ \
                                                                                                                     withTitle:nil \
                                                                                                                     withFormat:(fmt), ##__VA_ARGS__];
@@ -59,14 +59,14 @@ NS_ASSUME_NONNULL_BEGIN
         if (desc.length > 0) { \
         [CLOLogHelper sSDKErrorsLog:_cmd \
         object:self \
-        file:[NSString stringWithUTF8String:__FILE__] \
+        file:[[NSString alloc] initWithUTF8String:__FILE__] \
         lineNumber:__LINE__ \
         withTitle:nil \
         withFormat:(desc), ##__VA_ARGS__]; \
         } \
         [[NSAssertionHandler currentHandler] handleFailureInMethod:_cmd \
         object:self \
-        file:[NSString stringWithUTF8String:__FILE__] \
+        file:[[NSString alloc] initWithUTF8String:__FILE__] \
         lineNumber:__LINE__ \
         description:(desc), ##__VA_ARGS__]; \
         } \

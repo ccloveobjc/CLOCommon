@@ -31,6 +31,7 @@
     self = [self initWithQueue:nil];
     if (self) {
         
+        abort();// 换 initWithQueue 来用
     }
     
     return self;
@@ -53,7 +54,10 @@
         
         
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        _mSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:_mOQueue];
+        __weak id  d = self;
+        __weak id  dq = _mOQueue;
+//        _mSession = [NSURLSession sessionWithConfiguration:configuration delegate:d delegateQueue:dq];
+        _mSession = [NSURLSession sessionWithConfiguration:configuration];
         
         _mDicKeyObj = [NSMutableDictionary dictionary];
     }
@@ -61,8 +65,15 @@
     return self;
 }
 
+
+- (void)dealloc
+{
+    SDKLog(@"dealloc");
+}
+
 - (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bCLONetworkingFinish)block
 {
+    abort();
     NSURL *url = postParam.mUrlPath;
     NSDictionary<NSString *, NSString *> *params = postParam.mDicParams;
     BOOL isAsycn = postParam.mBolAsycn;
@@ -73,7 +84,7 @@
         NSString *strBody = [self fGotParamsStringByDictionary:params];
         if (postParam.mEumHttpMethod == eCLONetworkingMethod_GET)
         {
-            NSString *strNUrl = [NSString stringWithFormat:@"%@?%@", url, strBody];
+            NSString *strNUrl = [[NSString alloc] initWithFormat:@"%@?%@", url, strBody];
             NSURL *nUrl = [NSURL URLWithString:strNUrl];
             request = [[NSMutableURLRequest alloc] initWithURL:nUrl];
             request.HTTPMethod = @"GET";
@@ -167,6 +178,7 @@
               withFinish:(bCLONetworkingDownload)finish
             withProgress:(bCLONetworkingDownloadProgress)progress
 {
+    abort();
     NSURL *url = postParam.mUrlPath;
     NSDictionary<NSString *, NSString *> *params = postParam.mDicParams;
     BOOL isAsycn = postParam.mBolAsycn;
@@ -214,7 +226,7 @@
                     keyObj.mDebug_UUID = keyUUID;
 #endif
                 }
-                NSString *key = [NSString stringWithFormat:@"%@", @(cTask.taskIdentifier)];
+                NSString *key = [[NSString alloc] initWithFormat:@"%@", @(cTask.taskIdentifier)];
                 self.mDicKeyObj[key] = keyObj;
                 SDKLog(@"设置 mDicKeyObj[%@] = %@", key, keyObj);
             }
@@ -252,7 +264,7 @@
 
 - (NSString *)fGotParamsStringByDictionary:(NSDictionary<NSString *, NSString *> *)dicParams
 {
-    NSMutableString *strParams = [NSMutableString stringWithString:@""];
+    NSMutableString *strParams = [[NSMutableString alloc] initWithString:@""];
     
     if (dicParams) {
         
@@ -285,7 +297,7 @@
 - (void)vGotRequestByTask:(NSURLSessionTask *)task withLocation:(NSURL *)location withError:(NSError *)err
 {
     CLONetworkingRequest *keyObj = nil;
-    NSString *key = [NSString stringWithFormat:@"%@", @(task.taskIdentifier)];
+    NSString *key = [[NSString alloc] initWithFormat:@"%@", @(task.taskIdentifier)];
     if (key) {
         
         @synchronized (self.mDicKeyObj) {
@@ -390,6 +402,9 @@
                 block(nil, nil, CLOErrorMake(@"CLOCommon", -404, @"参数错误"));
             }
         }
+        
+        cTask = nil;
+        request = nil;
     }
     else {
         
@@ -411,7 +426,7 @@
         case eCLONetworkingContentType_Text:
         {
             NSString *strBody = [self fGotParamsStringByDictionary:postParam.mDicParams];
-            NSString *strNUrl = [NSString stringWithFormat:@"%@?%@", url.absoluteString, strBody];
+            NSString *strNUrl = [[NSString alloc] initWithFormat:@"%@?%@", url.absoluteString, strBody];
             NSURL *nUrl = [NSURL URLWithString:strNUrl];
             request = [[NSMutableURLRequest alloc] initWithURL:nUrl];
             request.HTTPBody = [strBody dataUsingEncoding:NSUTF8StringEncoding];
@@ -456,7 +471,7 @@
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
 {
     CLONetworkingRequest *keyObj = nil;
-    NSString *key = [NSString stringWithFormat:@"%@", @(downloadTask.taskIdentifier)];
+    NSString *key = [[NSString alloc] initWithFormat:@"%@", @(downloadTask.taskIdentifier)];
     if (key) {
         
         @synchronized (self.mDicKeyObj) {

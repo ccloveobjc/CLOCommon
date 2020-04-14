@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)pInsertOperation:(__kindof CLOTaskOperation *)queue;
 
 /** 停止当前正在做的任务，并追加到队前 */
-- (void)pStopCurrentOperationAndInsert:(__kindof CLOTaskOperation *)queue;
+- (void)pStopCurrentOperationAndInsert:(nullable __kindof CLOTaskOperation *)queue;
 
 @end
 NS_ASSUME_NONNULL_END

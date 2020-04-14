@@ -15,7 +15,7 @@ static const char c_strHexs[] = "0123456789ABCDEF";
 
 + (NSString *)CLOConvertToHexString:(NSData *)dataHex
 {
-    NSMutableString *strHex = [NSMutableString string];
+    NSMutableString *strHex = [[NSMutableString alloc] init];
     if (dataHex.length > 0) {
         
         NSData *dataS = dataHex;

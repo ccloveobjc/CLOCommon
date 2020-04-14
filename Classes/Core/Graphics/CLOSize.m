@@ -14,8 +14,8 @@
     self = [super init];
     if (self) {
         
-        _width = 0;
-        _height = 0;
+        _width = @(0);
+        _height = @(0);
     }
     return self;
 }

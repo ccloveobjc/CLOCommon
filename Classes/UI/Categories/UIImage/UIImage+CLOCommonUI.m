@@ -873,11 +873,11 @@ double cppCLORadiansToDegrees(double radians)
         }
         else if ([param isKindOfClass:[NSNumber class]]) {
             
-            strText = [NSString stringWithFormat:@"%@", param];
+            strText = [[NSString alloc] initWithFormat:@"%@", param];
         }
         else if ([param isKindOfClass:[NSArray class]]) {
             
-            NSMutableString *strSub = [NSMutableString string];
+            NSMutableString *strSub = [[NSMutableString alloc] init];
             for (id x in param) {
                 
                 [strSub appendFormat:@"%@,", x];
@@ -889,7 +889,7 @@ double cppCLORadiansToDegrees(double radians)
             SDKAssert;
         }
         
-        NSString *strAll = [NSString stringWithFormat:@"%@ = %@", key, strText];
+        NSString *strAll = [[NSString alloc] initWithFormat:@"%@ = %@", key, strText];
         [strAll drawAtPoint:(CGPointMake(30, index * step + 5)) withAttributes:@{
                                                                             NSFontAttributeName : [UIFont systemFontOfSize:18],
                                                                             NSForegroundColorAttributeName : [UIColor blackColor],

@@ -97,7 +97,7 @@
     
     if (secret && params) {
         
-        NSMutableString *sigStr = [NSMutableString stringWithString:@""];
+        NSMutableString *sigStr = [[NSMutableString alloc] initWithString:@""];
         NSArray *arr = [[params allKeys] sortedArrayUsingSelector:@selector(compare:)];
         for (NSString *key in arr) {
             

@@ -29,7 +29,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
         decodingTable = malloc(256);
         if (decodingTable == NULL)
         {
-            return nil;
+            return [NSData data];
         }
         memset(decodingTable, CHAR_MAX, 256);
         NSUInteger i;

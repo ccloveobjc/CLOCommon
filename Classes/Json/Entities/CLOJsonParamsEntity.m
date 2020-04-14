@@ -102,7 +102,7 @@
                             }
                             else if ([dicStreValue.mClsType isSubclassOfClass:[NSNumber class]]) {
                                 
-                                ivValue = [NSString stringWithFormat:@"%@", vValue];
+                                ivValue = [[NSString alloc] initWithFormat:@"%@", vValue];
                             }
                             else if ([dicStreValue.mClsType isSubclassOfClass:[NSSet class]]) {
                                 

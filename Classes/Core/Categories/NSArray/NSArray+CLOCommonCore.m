@@ -24,7 +24,7 @@
 
 - (NSString *)CLOMakeStringWithNumbers
 {
-    NSMutableString *retStr = [NSMutableString stringWithString:@""];
+    NSMutableString *retStr = [[NSMutableString alloc] initWithString:@""];
     if (self.count > 0) {
         
         for (int i = 0; i < self.count; ++i) {

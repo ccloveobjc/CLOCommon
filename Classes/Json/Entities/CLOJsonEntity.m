@@ -605,7 +605,7 @@
     self = [super init];
     if (self) {
         
-        _mStrKey = [NSString stringWithFormat:@"mJsn_%@", skey];
+        _mStrKey = [[NSString alloc] initWithFormat:@"mJsn_%@", skey];
         _mClassType = classT;
         _mEumStretagy = stre;
         _mJsonClassType = jsonClassT;

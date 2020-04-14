@@ -14,7 +14,6 @@
 - (instancetype)init;
 - (instancetype)initWithQueue:(NSOperationQueue *)queue;
 
-
 - (void)pRequest:(CLONetworkingObject *)postParam withFinish:(bCLONetworkingFinish)block;
 
 - (void)pRequestDownload:(CLONetworkingObject *)postParam

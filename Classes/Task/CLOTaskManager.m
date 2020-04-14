@@ -109,6 +109,9 @@
 - (void)pStop:(bCLOCommonTaskFinish)block
 {
     self.mStopBlock = block;
+    
+    [self pStopCurrentOperationAndInsert:nil];
+    
     if (self.mFlowThread) {
         
         @synchronized (self) {
