@@ -382,15 +382,27 @@
         id value = [self valueForKey:stre.mStrKey];
         if (value) {
             
-            if ([stre.mJsonClassType isSubclassOfClass:[NSString class]] || [stre.mJsonClassType isSubclassOfClass:[NSNumber class]]) {
+            if ([stre.mJsonClassType isSubclassOfClass:[NSString class]]) {
                 
-                if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]) {
+                if ([value isKindOfClass:[NSString class]]) {
                     
                     return value;
                 }
                 else {
                     
-                    SDKAssertionLog(NO, @"类型不对");
+                    SDKAssertionLog(NO, @"类型不对 strKey = %@, mJsonClassType = %@", stre.mStrKey, stre.mJsonClassType);
+                    return nil;
+                }
+            }
+            else if ([stre.mJsonClassType isSubclassOfClass:[NSNumber class]]) {
+                
+                if ([value isKindOfClass:[NSNumber class]]) {
+                    
+                    return isnan( [(NSNumber *)value doubleValue]) ? @(0) : value;
+                }
+                else {
+                    
+                    SDKAssertionLog(NO, @"类型不对 strKey = %@, mJsonClassType = %@", stre.mStrKey, stre.mJsonClassType);
                     return nil;
                 }
             }
@@ -402,7 +414,7 @@
                 }
                 else {
                     
-                    SDKAssertionLog(NO, @"类型不对");
+                    SDKAssertionLog(NO, @"类型不对 strKey = %@, mJsonClassType = %@", stre.mStrKey, stre.mJsonClassType);
                     return nil;
                 }
             }
@@ -423,7 +435,7 @@
                         }
                         else {
                             
-                            SDKAssertionLog(NO, @"类型不对");
+                            SDKAssertionLog(NO, @"类型不对 strKey = %@, mJsonClassType = %@", stre.mStrKey, stre.mJsonClassType);
                             return nil;
                         }
                     };
@@ -443,125 +455,6 @@
     }
     
     return nil;
-//    NSMutableDictionary *dicJson = [NSMutableDictionary dictionary];
-//    NSDictionary *dicStre = [[self class] c_CDS_onDB2Json];
-//    for (CLOJsonStretagyEntity *stre in dicStre.allValues) {
-//        
-//        if ([stre.mJsonClassType isSubclassOfClass:[NSString class]]
-//            || [stre.mJsonClassType isSubclassOfClass:[NSNumber class]]) {
-//            
-//            if ([self c_common_propertyForKey:stre.mStrKey]) {
-//                
-//                [dicJson setValue:[self valueForKey:stre.mStrKey] forKey:[stre.mStrKey c_common_removeOccurrencesOfString:@"mJsn_"]];
-//            }
-//            else {
-//                
-//                SDKAssert
-//            }
-//        }
-//        else if ([stre.mJsonClassType isSubclassOfClass:[NSArray class]]) {
-//            
-//            if ([self c_common_propertyForKey:stre.mStrKey]) {
-//                
-//                NSArray *sArr = [[self valueForKey:stre.mStrKey] c_common_convertToClass:[NSArray class]];
-//                if (sArr) {
-//                    
-//                    NSMutableArray *arrJson = [NSMutableArray array];
-//                    for (CLOJsonEntity *objEty in sArr) {
-//                        
-//                        NSDictionary *dicBase = [objEty cv_CDS_gotJsonDic];
-//                        if (dicBase) {
-//                            
-//                            [arrJson addObject:dicBase];
-//                        }
-//                        else {
-//                            
-//                            SDKAssert
-//                        }
-//                    };
-//                    if (arrJson.count > 0) {
-//                        
-//                        [dicJson setValue:arrJson forKey:stre.mStrKey];
-//                    }
-//                }
-//                
-////                NSSet *setArr = [[self valueForKey:stre.mStrKey] c_common_convertToClass:[NSSet class]];
-////                if (setArr) {
-////                    
-////                    NSMutableArray *arrJson = [NSMutableArray array];
-////                    
-////                    NSArray *arrT = [setArr c_common_sortCommonDescriptorWithKey:@"dlb_createTime" ascending:YES];
-////                    
-////                    for (NSManagedObject *oBase in arrT) {
-////                        
-////                        NSDictionary *dicBase = [oBase cv_CDS_gotJsonDic];
-////                        if (dicBase) {
-////                            
-////                            [arrJson addObject:dicBase];
-////                        }
-////                        else {
-////                            
-////                            SDKAssert
-////                        }
-////                    }
-////                    if (arrJson.count > 0) {
-////                        
-////                        [dicJson setValue:arrJson forKey:stre.mStrJsonKey];
-////                    }
-////                }
-//            }
-//            else {
-//                
-//                SDKAssert
-//            }
-//        }
-//        else if ([stre.mJsonClassType isSubclassOfClass:[NSDictionary class]]) {
-//            
-//            if ([self c_common_propertyForKey:stre.mStrKey]) {
-//                
-////                id valueOri = [self valueForKey:stre.mStrKey];
-////                if ([valueOri isKindOfClass:[NSManagedObject class]]) {
-////                
-////                    NSManagedObject *oBase = [valueOri c_common_convertToClass:[NSManagedObject class]];
-////                    NSDictionary *dicBase = [oBase cv_CDS_gotJsonDic];
-////                    if (dicBase) {
-////                        
-////                        [dicJson setValue:dicBase forKey:stre.mStrJsonKey];
-////                    }
-////                    else {
-////                        
-////                        SDKAssert
-////                    }
-////                }
-////                else if ([valueOri isKindOfClass:[NSData class]]) {
-////                    
-////                    id vData = [NSMutableData c_common_unarchiver:valueOri];
-////                    if ([vData isKindOfClass:stre.mClsJsonType]) {
-////                        
-////                        [dicJson setValue:vData forKey:stre.mStrJsonKey];
-////                    }
-////                    else {
-////                        
-////                        SDKAssert
-////                    }
-////                }
-////                else {
-////                    
-////                    //可能为nil
-////                }
-//            }
-//            else {
-//                
-//                SDKAssert
-//            }
-//        }
-//        else {
-//            
-//            SDKAssert
-//        }
-//    }
-//    
-//    return dicJson;
 }
 
 + (NSDictionary<NSString *,CLOJsonStretagyEntity *> *)c_CDS_onDB2Json
