@@ -398,7 +398,7 @@
                 
                 if ([value isKindOfClass:[NSNumber class]]) {
                     
-                    return isnan( [(NSNumber *)value doubleValue]) ? @(0) : value;
+                    return isnan( [(NSNumber *)value doubleValue]) ? @(-1) : value;
                 }
                 else {
                     
