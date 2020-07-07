@@ -398,7 +398,8 @@
                 
                 if ([value isKindOfClass:[NSNumber class]]) {
                     
-                    return isnan( [(NSNumber *)value doubleValue]) ? @(-1) : value;
+                    double tmp = [(NSNumber *)value doubleValue];
+                    return (isnan(tmp) || isinf(tmp)) ? @(0) : value;
                 }
                 else {
                     
