@@ -51,7 +51,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)CLOCopyItemURL:(NSURL *)from To:(NSURL *)to;
 
+/**
+ copy 一个文件夹到另一个文件夹
+ */
++ (BOOL)CLOCopyDirectory:(NSString *)from To:(NSString *)to;
+
 + (BOOL)CLOAddSkipBackupAttributeToItemAtFilePath:(NSString *)filePath;
+
+/**
+ 获取文件夹内所有文件的物理大小
+ */
++ (NSUInteger)getDirectoryLength:(NSString *)path;
 
 @end
 

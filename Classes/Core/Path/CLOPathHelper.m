@@ -223,6 +223,77 @@
     return bRet;
 }
 
++ (BOOL)CLOCopyDirectory:(NSString *)from To:(NSString *)to
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSArray* array = [fileManager contentsOfDirectoryAtPath:from error:nil];
+    for(int i = 0; i < [array count]; i++)
+    {
+        NSString *fullPath = [from stringByAppendingPathComponent:[array objectAtIndex:i]];
+        NSString *fullToPath = [to stringByAppendingPathComponent:[array objectAtIndex:i]];
+
+//        SDKLog(@"%@",fullPath);
+//
+//        SDKLog(@"%@",fullToPath);
+
+        //判断是不是文件夹
+
+        BOOL isFolder = NO;
+
+        //判断是不是存在路径 并且是不是文件夹
+        BOOL isExist = [fileManager fileExistsAtPath:fullPath isDirectory:&isFolder];
+        if (isExist)
+        {
+            if (isFolder)
+            {
+                if (![self CLOCopyDirectory:fullPath To:fullToPath]) {
+                    
+                    return NO;
+                }
+            }
+            else
+            {
+                NSError *err = nil;
+                [[NSFileManager defaultManager] copyItemAtPath:fullPath toPath:fullToPath error:&err];
+                if (err)
+                {
+                    return NO;
+                }
+            }
+        }
+    }
+    
+    return YES;
+}
+
++ (NSUInteger)getDirectoryLength:(NSString *)path
+{
+    // 总大小
+    NSUInteger size = 0;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    BOOL isDir = NO;
+    BOOL exist = [manager fileExistsAtPath:path isDirectory:&isDir];
+    
+    // 判断路径是否存在
+    if (!exist) return size;
+    if (isDir) {
+        // 是文件夹
+        NSDirectoryEnumerator *enumerator = [manager enumeratorAtPath:path];
+        for (NSString *subPath in enumerator) {
+        
+            NSString *fullPath = [path stringByAppendingPathComponent:subPath];
+            size += [CLOPathHelper getDirectoryLength:fullPath];
+        }
+    }
+    else { // 是文件
+        
+        size += [manager attributesOfItemAtPath:path error:nil].fileSize;
+    }
+    
+    return size;
+}
+
 #pragma mark - 屏蔽路径
 + (BOOL)CLOAddSkipBackupAttributeToItemAtFilePath:(NSString *)filePath
 {

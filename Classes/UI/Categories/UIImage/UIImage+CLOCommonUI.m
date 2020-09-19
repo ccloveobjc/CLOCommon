@@ -308,7 +308,7 @@ double cppCLORadiansToDegrees(double radians)
         CGContextTranslateCTM(context, 0, -height);
     }
     CGContextConcatCTM(context, transform);
-    CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, width, height), imgRef);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imgRef);
     UIImage *imageCopy = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return imageCopy;
