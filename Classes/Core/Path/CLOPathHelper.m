@@ -231,7 +231,7 @@
 
 + (BOOL)CLOCopyDirectory:(NSString *)from To:(NSString *)to
 {
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray* array = [fileManager contentsOfDirectoryAtPath:from error:nil];
     for(int i = 0; i < [array count]; i++)
     {
@@ -254,7 +254,11 @@
             }
             else
             {
-                return [CLOPathHelper CLOCopyFile:fullPath To:fullToPath];
+                BOOL ret = [CLOPathHelper CLOCopyFile:fullPath To:fullToPath];
+                if (ret == NO) {
+                    // 当错误时，返回
+                    return ret;
+                }
             }
         }
     }
