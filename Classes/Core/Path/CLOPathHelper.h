@@ -56,6 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (BOOL)CLOCopyDirectory:(NSString *)from To:(NSString *)to;
 
+/**
+ 创建文件的前置目录
+ 比如 /xxx/yyy/jjj.png 就创建 /xxx/yyy 文件夹
+ */
++ (BOOL)CLOCreateFileDirectory:(NSString *)filePath;
++ (BOOL)CLOCreateFileDirectoryURL:(NSURL *)filePath;
+
 + (BOOL)CLOAddSkipBackupAttributeToItemAtFilePath:(NSString *)filePath;
 
 /**

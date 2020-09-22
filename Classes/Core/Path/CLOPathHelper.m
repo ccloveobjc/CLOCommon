@@ -141,6 +141,8 @@
             [self CLORemoveFile:to];
         }
         
+        [CLOPathHelper CLOCreateFileDirectory:to];
+        
         NSError *error = nil;
         [[NSFileManager defaultManager] copyItemAtPath:from toPath:to error:&error];
         if (error) {
@@ -163,6 +165,8 @@
             
             [self CLORemoveFile:to];
         }
+        
+        [CLOPathHelper CLOCreateFileDirectory:to];
         
         char const *path_cstr = [[NSFileManager defaultManager] fileSystemRepresentationWithPath:from];
         FILE *fh = fopen(path_cstr, "r");
@@ -212,6 +216,8 @@
             [self CLORemoveDirectoryURL:to];
         }
         
+        [CLOPathHelper CLOCreateFileDirectoryURL:to];
+        
         NSError *error = nil;
         bRet = [[NSFileManager defaultManager] copyItemAtURL:from toURL:to error:&error];
         if (error) {
@@ -232,12 +238,7 @@
         NSString *fullPath = [from stringByAppendingPathComponent:[array objectAtIndex:i]];
         NSString *fullToPath = [to stringByAppendingPathComponent:[array objectAtIndex:i]];
 
-//        SDKLog(@"%@",fullPath);
-//
-//        SDKLog(@"%@",fullToPath);
-
         //判断是不是文件夹
-
         BOOL isFolder = NO;
 
         //判断是不是存在路径 并且是不是文件夹
@@ -253,18 +254,26 @@
             }
             else
             {
-                NSError *err = nil;
-                [[NSFileManager defaultManager] copyItemAtPath:fullPath toPath:fullToPath error:&err];
-                if (err)
-                {
-                    return NO;
-                }
+                return [CLOPathHelper CLOCopyFile:fullPath To:fullToPath];
             }
         }
     }
     
     return YES;
 }
+
++ (BOOL)CLOCreateFileDirectory:(NSString *)filePath
+{
+    NSString *dir = [filePath stringByDeletingLastPathComponent];
+    return [CLOPathHelper CLOCreateDirectory:dir];
+}
+
++ (BOOL)CLOCreateFileDirectoryURL:(NSURL *)filePath
+{
+    NSURL *dir = [filePath URLByDeletingLastPathComponent];
+    return [CLOPathHelper CLOCreateDirectoryURL:dir];
+}
+
 
 + (NSUInteger)getDirectoryLength:(NSString *)path
 {
