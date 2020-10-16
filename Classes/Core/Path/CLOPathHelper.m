@@ -30,12 +30,22 @@
     return [filenamePath checkResourceIsReachableAndReturnError:nil];
 }
 
-
 + (BOOL)CLOCreateFile:(NSData *)data andPath:(NSString *)path
 {
-    return [[NSFileManager defaultManager] createFileAtPath:path contents:data attributes:nil];
+    if (data && path.length > 0) {
+    
+        if ([self CLOFileExists:path]) {
+            
+            [self CLORemoveFile:path];
+        }
+        
+        [CLOPathHelper CLOCreateFileDirectory:path];
+        
+        return [data writeToFile:path atomically:YES];
+    } SDKAssertElseLog(@"data 和 path 都得有值")
+    
+    return NO;
 }
-
 
 + (BOOL)CLORemoveFile:(NSString *)filePath
 {
