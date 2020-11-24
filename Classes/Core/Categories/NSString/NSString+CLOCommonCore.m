@@ -129,7 +129,7 @@
 + (NSString *)CLOGotDateFormat:(NSDate *)pDate
 {
     NSDateFormatter *pFormatter = [[NSDateFormatter alloc] init];
-    [pFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    [pFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *pTime = [pFormatter stringFromDate:pDate];
     return pTime;
 }
