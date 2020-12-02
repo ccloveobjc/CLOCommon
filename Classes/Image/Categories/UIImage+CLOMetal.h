@@ -13,9 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIImage *)CLOImageWithMTLTexture:(id<MTLTexture>)texture;
 
-//+ (UIImage *)CLOxxxxxx:(id<MTLTexture>)texture;
-
 + (CVPixelBufferRef)CLOMTLTextureToPixelBuffer:(id<MTLTexture>)texture;
+
+/**
+ 注意，需要自行释放这个返回
+ 使用 malloc() 的方式创建，需要用 free() 的方式释放
+ */
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image;
+
+/**
+ 需要自行释放这个返回
+ 使用 CGContextRelease() 的方式释放
+ */
++ (CGContextRef)CLONewBitmapRGBA8ContextFromImage:(CGImageRef)image;
 
 @end
 
