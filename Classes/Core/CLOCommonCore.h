@@ -23,6 +23,7 @@ FOUNDATION_EXPORT const unsigned char CLOCommonCoreVersionString[];
 #import <CLOCommon/CLOBlockHelper.h>
 
 #import <CLOCommon/NSArray+CLOCommonCore.h>
+#import <CLOCommon/NSBundle+CLOCommonCore.h>
 #import <CLOCommon/NSData+CLOConvertToHex.h>
 #import <CLOCommon/NSDictionary+CLOCommonCore.h>
 #import <CLOCommon/NSError+CLOCommonCore.h>
