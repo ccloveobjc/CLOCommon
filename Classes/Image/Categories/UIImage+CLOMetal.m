@@ -234,7 +234,7 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
 }
 
 
-+ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow
 {
     CGImageRef imageRef = image.CGImage;
     
@@ -258,6 +258,7 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     
     // Copy the data and release the memory (return memory allocated with new)
     size_t bytesPerRow = CGBitmapContextGetBytesPerRow(context);
+    *oBytesPerRow = bytesPerRow;
     size_t bufferLength = bytesPerRow * height;
     
     unsigned char *newBitmap = NULL;
