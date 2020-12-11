@@ -29,6 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSMutableArray<NSNumber *> *)CLOGotFloatArray;
 
 /**
+ *  string 拆分成一个一个的 string by ","
+ * return  @[@"string",@"string", ... ,@"string"]
+ */
+- (nullable NSMutableArray<NSString *> *)CLOGotStringArray;
+
+
+/**
  *  NSString(hex) to NSUInteger(hex)
  */
 - (NSUInteger)CLOGotHexValue;

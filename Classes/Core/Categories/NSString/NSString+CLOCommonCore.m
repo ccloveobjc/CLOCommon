@@ -63,7 +63,19 @@
         [arrM addObject:@([strNum floatValue])];
     }
     
-    return arrM.count > 0 ? arrM : nil;
+    return arrM;
+}
+
+- (NSMutableArray<NSString *> *)CLOGotStringArray
+{
+    NSMutableArray<NSString *> *arrM = [NSMutableArray array];
+    NSArray *arr = [self componentsSeparatedByString:@","];
+    for (NSString *str in arr) {
+        
+        [arrM addObject:str];
+    }
+    
+    return arrM;
 }
 
 - (NSUInteger)CLOGotHexValue

@@ -24,25 +24,7 @@
 
 - (NSString *)CLOMakeStringWithNumbers
 {
-    NSMutableString *retStr = [[NSMutableString alloc] initWithString:@""];
-    if (self.count > 0) {
-        
-        for (int i = 0; i < self.count; ++i) {
-            
-            id value = self[i];
-            if ([value isKindOfClass:[NSNumber class]]) {
-                
-                if (retStr.length != 0) {
-                    
-                    [retStr appendString:@","];
-                }
-                
-                [retStr appendFormat:@"%@",value];
-            }
-        }
-    }
-    
-    return retStr;
+    return [self CLOMakeStringWithObjects:NSNumber.class];
 }
 
 - (CGPoint)CLOGotCGPoint
@@ -61,4 +43,31 @@
     return CGPointZero;
 }
 
+- (NSString *)CLOMakeStringWithStrings
+{
+    return [self CLOMakeStringWithObjects:NSString.class];
+}
+
+- (NSString *)CLOMakeStringWithObjects:(Class)cls
+{
+    NSMutableString *retStr = [[NSMutableString alloc] initWithString:@""];
+    if (self.count > 0) {
+        
+        for (int i = 0; i < self.count; ++i) {
+            
+            id value = self[i];
+            if ([value isKindOfClass:cls]) {
+                
+                if (retStr.length != 0) {
+                    
+                    [retStr appendString:@","];
+                }
+                
+                [retStr appendFormat:@"%@", value];
+            }
+        }
+    }
+    
+    return retStr;
+}
 @end

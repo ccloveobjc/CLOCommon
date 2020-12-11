@@ -30,6 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (CGPoint)CLOGotCGPoint;
 
+
+/**
+ *  制作string 通过一组number  @[@"string1",@"string2"] -> "string1,string2"
+ */
+- (NSString *)CLOMakeStringWithStrings;
+
 @end
 
 NS_ASSUME_NONNULL_END
