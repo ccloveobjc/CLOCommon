@@ -60,7 +60,10 @@
     NSArray *arr = [self componentsSeparatedByString:@","];
     for (NSString *strNum in arr) {
         
-        [arrM addObject:@([strNum floatValue])];
+        if (strNum.length > 0) {
+        
+            [arrM addObject:@([strNum floatValue])];
+        }
     }
     
     return arrM;
@@ -72,7 +75,10 @@
     NSArray *arr = [self componentsSeparatedByString:@","];
     for (NSString *str in arr) {
         
-        [arrM addObject:str];
+        if (str.length > 0) {
+        
+            [arrM addObject:str];
+        }
     }
     
     return arrM;
