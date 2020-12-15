@@ -276,7 +276,7 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
         free(bitmapData);
         
     } else {
-        NSLog(@"Error getting bitmap pixel data\n");
+        SDKLog(@"Error getting bitmap pixel data\n");
     }
     
     CGContextRelease(context);
@@ -303,7 +303,7 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     colorSpace = CGColorSpaceCreateDeviceRGB();
     
     if(!colorSpace) {
-        NSLog(@"Error allocating color space RGB\n");
+        SDKLog(@"Error allocating color space RGB\n");
         return NULL;
     }
     
@@ -311,7 +311,7 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     bitmapData = (uint32_t *)malloc(bufferLength);
     
     if(!bitmapData) {
-        NSLog(@"Error allocating memory for bitmap\n");
+        SDKLog(@"Error allocating memory for bitmap\n");
         CGColorSpaceRelease(colorSpace);
         return NULL;
     }
@@ -327,7 +327,7 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
             kCGImageAlphaPremultipliedLast);    // RGBA
     if(!context) {
         free(bitmapData);
-        NSLog(@"Bitmap context not created");
+        SDKLog(@"Bitmap context not created");
     }
     
     CGColorSpaceRelease(colorSpace);
