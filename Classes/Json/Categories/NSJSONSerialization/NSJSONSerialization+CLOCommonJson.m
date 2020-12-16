@@ -162,7 +162,11 @@
 
 + (NSString *)JSONStringWithDictionary:(NSDictionary *)json
 {
-    NSData *dataJson = [self JSONDataWithDictionary:json];
+    return [self.class JSONStringWithDictionary:json withOption:NSJSONWritingPrettyPrinted];
+}
++ (NSString *)JSONStringWithDictionary:(NSDictionary *)json withOption:(NSJSONWritingOptions)opt
+{
+    NSData *dataJson = [self JSONDataWithDictionary:json withOption:opt];
     if (dataJson) {
     
         NSString *aString = [[NSString alloc] initWithData:dataJson encoding:NSUTF8StringEncoding];
@@ -174,4 +178,5 @@
     }
     return nil;
 }
+
 @end

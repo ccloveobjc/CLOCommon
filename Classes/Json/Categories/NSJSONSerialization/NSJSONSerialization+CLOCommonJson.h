@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSArray *)JSONObjectWithArrayData:(NSData *)data;
 
 + (nullable NSString *)JSONStringWithDictionary:(NSDictionary *)json;
++ (nullable NSString *)JSONStringWithDictionary:(NSDictionary *)json withOption:(NSJSONWritingOptions)opt;
 
 @end
 
