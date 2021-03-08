@@ -233,8 +233,13 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     }
 }
 
-
 + (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow
+{
+    size_t w = 0,h = 0;
+    return [self.class CLOConvertUIImageToBitmapRGBA8:image withOutPerRow:oBytesPerRow withOutWidth:&w withOutHeight:&h];
+}
+
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow withOutWidth:(size_t *)oW withOutHeight:(size_t *)oH
 {
     CGImageRef imageRef = image.CGImage;
     
@@ -247,6 +252,8 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     
     size_t width = CGImageGetWidth(imageRef);
     size_t height = CGImageGetHeight(imageRef);
+    *oW = width;
+    *oH = height;
     
     CGRect rect = CGRectMake(0, 0, width, height);
     

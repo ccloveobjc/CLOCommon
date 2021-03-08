@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  使用 malloc() 的方式创建，需要用 free() 的方式释放
  */
 + (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow;
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow withOutWidth:(size_t *)oW withOutHeight:(size_t *)oH;
 
 /**
  需要自行释放这个返回
