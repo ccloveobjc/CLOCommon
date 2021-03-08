@@ -341,4 +341,39 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     
     return context;
 }
+
+
++ (UIImage *)CLOCreateImage:(unsigned char *)pixelData withBytesPerPixel:(NSUInteger)bytesPerPixel width:(NSUInteger)w height:(NSUInteger)h
+{
+    // bytesPerPixel 支持 1，3，4
+    NSUInteger bytesPerRow = w * bytesPerPixel;
+    
+    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, pixelData, h * bytesPerRow, NULL);
+
+    CGColorSpaceRef colorSpaceRef;
+    if (bytesPerPixel == 1)
+    {
+        colorSpaceRef = CGColorSpaceCreateDeviceGray();
+    }
+    else
+    {
+        colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+    }
+    
+    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
+    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+
+    NSUInteger bitsPerComponent = 8;
+    NSUInteger bitsPerPixel = bytesPerPixel * bitsPerComponent;
+    
+    CGImageRef imageRef = CGImageCreate(w, h, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
+    
+    UIImage *uiImage = [[UIImage alloc] initWithCGImage:imageRef];
+    
+    CGImageRelease(imageRef);
+    CGColorSpaceRelease(colorSpaceRef);
+    CGDataProviderRelease(provider);
+    
+    return uiImage;
+}
 @end
