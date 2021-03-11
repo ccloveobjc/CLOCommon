@@ -317,6 +317,35 @@
     return size;
 }
 
++ (NSArray<NSString *> *)CLOGetFilesByDirectory:(NSString *)dir
+{
+    NSMutableArray<NSString *> *rest = [[NSMutableArray alloc] init];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    
+    BOOL isDir = NO;
+    BOOL exist = [manager fileExistsAtPath:dir isDirectory:&isDir];
+    
+    if (!exist) return nil;
+    
+    if (isDir)
+    {
+        NSDirectoryEnumerator *enumerator = [manager enumeratorAtPath:dir];
+        for (NSString *subPath in enumerator) {
+        
+            NSString *fullPath = [dir stringByAppendingPathComponent:subPath];
+            NSArray *arr = [self.class CLOGetFilesByDirectory:fullPath];
+            [rest addObjectsFromArray:arr];
+        }
+    }
+    else
+    {
+        // 是文件
+        [rest addObject:dir];
+    }
+    
+    return rest;
+}
+
 #pragma mark - 屏蔽路径
 + (BOOL)CLOAddSkipBackupAttributeToItemAtFilePath:(NSString *)filePath
 {

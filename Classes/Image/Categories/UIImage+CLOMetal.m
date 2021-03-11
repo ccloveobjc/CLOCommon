@@ -354,13 +354,14 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     
     // copy内存 , 释放被 CLOMetalReleaseDataCallback 接管
     unsigned char *copy = malloc(allCount);
+    memset(copy, 0, allCount);
     if (bytesPerPixel == 1)
     {
         for (int i = 0; i < w * h; ++i)
         {
-            copy[i * channel + 0] = pixelDataX[i];
-            copy[i * channel + 1] = pixelDataX[i];
-            copy[i * channel + 2] = pixelDataX[i];
+//            copy[i * channel + 0] = 0; // 被 memset 了
+//            copy[i * channel + 1] = 0;
+//            copy[i * channel + 2] = 0;
             copy[i * channel + 3] = pixelDataX[i];
         }
     }

@@ -70,6 +70,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSUInteger)getDirectoryLength:(NSString *)path;
 
+/**
+ 获取当前路径下的所有文件
+ */
++ (NSArray<NSString *> *)CLOGetFilesByDirectory:(NSString *)dir;
+
 @end
 
 NS_ASSUME_NONNULL_END
