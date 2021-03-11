@@ -18,6 +18,10 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
 {
     free((void *)data);
 }
+static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo, void * __nullable data)
+{
+    free((void *)data);
+}
 
 + (UIImage *)CLOImageWithMTLTexture:(id<MTLTexture>)texture
 {
@@ -342,38 +346,81 @@ static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t siz
     return context;
 }
 
-
-+ (UIImage *)CLOCreateImage:(unsigned char *)pixelData withBytesPerPixel:(NSUInteger)bytesPerPixel width:(NSUInteger)w height:(NSUInteger)h
++ (UIImage *)CLOCreateRGBAImage:(unsigned char *)pixelDataX withBytesPerPixel:(NSUInteger)bytesPerPixel width:(NSUInteger)w height:(NSUInteger)h
 {
     // bytesPerPixel 支持 1，3，4
-    NSUInteger bytesPerRow = w * bytesPerPixel;
+    NSUInteger channel = 4;// 通道4
+    NSUInteger allCount = channel * w * h;
     
-    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, pixelData, h * bytesPerRow, NULL);
-
-    CGColorSpaceRef colorSpaceRef;
+    // copy内存 , 释放被 CLOMetalReleaseDataCallback 接管
+    unsigned char *copy = malloc(allCount);
     if (bytesPerPixel == 1)
     {
-        colorSpaceRef = CGColorSpaceCreateDeviceGray();
+        for (int i = 0; i < w * h; ++i)
+        {
+            copy[i * channel + 0] = pixelDataX[i];
+            copy[i * channel + 1] = pixelDataX[i];
+            copy[i * channel + 2] = pixelDataX[i];
+            copy[i * channel + 3] = pixelDataX[i];
+        }
     }
-    else
+    else if (bytesPerPixel == 4)
     {
-        colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        memcpy(copy, pixelDataX, allCount);
+    }
+    else {
+        SDKAssert;
+        return nil;
     }
     
-    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
-    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
-
+//    NSUInteger bytesPerRow = w * channel;
+//
+//    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, copy, h * bytesPerRow, CLOMetalReleaseDataCallback);
+//
+//    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+//
+//    CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Little;
+//    CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
+//
+//    NSUInteger bitsPerComponent = 8;
+//    NSUInteger bitsPerPixel = channel * bitsPerComponent;
+//
+//    CGImageRef imageRef = CGImageCreate(w, h, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
+//
+//    UIImage *uiImage = [[UIImage alloc] initWithCGImage:imageRef];
+//
+//    CGImageRelease(imageRef);
+//    CGColorSpaceRelease(colorSpaceRef);
+//    CGDataProviderRelease(provider);
+//
+//    return uiImage;
+    
+    
+    NSUInteger bytesPerRow = w * channel;
+    CGImageAlphaInfo alphaInfo = kCGImageAlphaPremultipliedLast;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     NSUInteger bitsPerComponent = 8;
-    NSUInteger bitsPerPixel = bytesPerPixel * bitsPerComponent;
     
-    CGImageRef imageRef = CGImageCreate(w, h, bitsPerComponent, bitsPerPixel, bytesPerRow, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
+    CGContextRef context = CGBitmapContextCreateWithData(copy, w, h, bitsPerComponent, bytesPerRow, colorSpace, alphaInfo, CLOCGBitmapContextReleaseDataCallback, NULL);
     
-    UIImage *uiImage = [[UIImage alloc] initWithCGImage:imageRef];
+    if (context == NULL)
+    {
+        SDKAssert;
+        return nil;
+    }
     
-    CGImageRelease(imageRef);
-    CGColorSpaceRelease(colorSpaceRef);
-    CGDataProviderRelease(provider);
+    CGImageRef cgImageRef = CGBitmapContextCreateImage(context);
     
-    return uiImage;
+    UIImage *grayImage = [[UIImage alloc] initWithCGImage:cgImageRef];
+    
+    CGImageRelease(cgImageRef);
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    
+//    NSData *iiii = UIImagePNGRepresentation(grayImage);
+//    unsigned char *xxx = malloc(allCount);
+//    [iiii getBytes:xxx length:allCount];
+    
+    return grayImage;
 }
 @end

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
   把RAW裸数据变成UIImage，bytesPerPixel指它是多少通道的，灰度图就是1，RGB就是3，RGBA就是4
  */
-+ (UIImage *)CLOCreateImage:(unsigned char *)pixelData withBytesPerPixel:(NSUInteger)bytesPerPixel width:(NSUInteger)w height:(NSUInteger)h;
++ (UIImage *)CLOCreateRGBAImage:(unsigned char *)pixelDataX withBytesPerPixel:(NSUInteger)bytesPerPixel width:(NSUInteger)w height:(NSUInteger)h;
 
 @end
 
