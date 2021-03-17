@@ -6,6 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MetalKit/MetalKit.h>
+#import <Accelerate/Accelerate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,12 +17,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CVPixelBufferRef)CLOMTLTextureToPixelBuffer:(id<MTLTexture>)texture;
 
++ (unsigned char *)CLOMTLTextureToBytes:(id<MTLTexture>)texture;
+
 /**
  注意，需要自行释放这个返回
  使用 malloc() 的方式创建，需要用 free() 的方式释放
  */
-+ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow;
-+ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow withOutWidth:(size_t *)oW withOutHeight:(size_t *)oH;
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *)image withOutPerRow:(size_t *)oBytesPerRow;
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *)image withOutPerRow:(size_t *)oBytesPerRow withOutWidth:(size_t *)oW withOutHeight:(size_t *)oH;
 
 /**
  需要自行释放这个返回
@@ -32,6 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
   把RAW裸数据变成UIImage，bytesPerPixel指它是多少通道的，灰度图就是1，RGB就是3，RGBA就是4
  */
 + (UIImage *)CLOCreateRGBAImage:(unsigned char *)pixelDataX withBytesPerPixel:(NSUInteger)bytesPerPixel width:(NSUInteger)w height:(NSUInteger)h;
+
++ (UIImage *)CLOMergeRGBAImage:(UIImage *)oriImg withMaskImage:(UIImage *)maskImg;
+
++ (UIImage *)CLOMergeRGBAData:(NSData *)ori withMaskData:(NSData *)mask;
 
 @end
 

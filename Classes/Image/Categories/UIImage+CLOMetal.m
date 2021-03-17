@@ -6,21 +6,18 @@
 //
 
 #import "UIImage+CLOMetal.h"
-#import <Metal/Metal.h>
 #import <CLOCommon/CLOCommonCore.h>
 #import <CoreVideo/CoreVideo.h>
-#import <MetalKit/MetalKit.h>
-#import <Accelerate/Accelerate.h>
 
 @implementation UIImage (CLOMetal)
 
 static void CLOMetalReleaseDataCallback(void *info, const void *data, size_t size)
 {
-    free((void *)data);
+    free(data);
 }
 static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo, void * __nullable data)
 {
-    free((void *)data);
+    free(data);
 }
 
 + (UIImage *)CLOImageWithMTLTexture:(id<MTLTexture>)texture
@@ -160,6 +157,18 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
 #endif
 }
 
++ (unsigned char *)CLOMTLTextureToBytes:(id<MTLTexture>)texture
+{
+    NSUInteger width = texture.width;
+    NSUInteger height = texture.height;
+    NSUInteger bytesPerRow = width * 4;
+    unsigned char* bytes = malloc(sizeof(unsigned char) * bytesPerRow * height);
+    MTLRegion rect = MTLRegionMake2D(0, 0, width, height);
+    [texture getBytes:bytes bytesPerRow:bytesPerRow fromRegion:rect mipmapLevel:0];
+    
+    return bytes;
+}
+
 + (CGImageRef)CLOConvertRGB888ToRGBA8888WithCGImageRef:(CGImageRef)cgImage
 {
     @autoreleasepool{
@@ -237,13 +246,13 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     }
 }
 
-+ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *)image withOutPerRow:(size_t *)oBytesPerRow
 {
     size_t w = 0,h = 0;
     return [self.class CLOConvertUIImageToBitmapRGBA8:image withOutPerRow:oBytesPerRow withOutWidth:&w withOutHeight:&h];
 }
 
-+ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *) image withOutPerRow:(size_t *)oBytesPerRow withOutWidth:(size_t *)oW withOutHeight:(size_t *)oH
++ (unsigned char *)CLOConvertUIImageToBitmapRGBA8:(UIImage *)image withOutPerRow:(size_t *)oBytesPerRow withOutWidth:(size_t *)oW withOutHeight:(size_t *)oH
 {
     CGImageRef imageRef = image.CGImage;
     
@@ -251,6 +260,7 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     CGContextRef context = [self.class CLONewBitmapRGBA8ContextFromImage:imageRef];
     
     if(!context) {
+        SDKLog(@"Error：context = null");
         return NULL;
     }
     
@@ -270,22 +280,14 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     // Copy the data and release the memory (return memory allocated with new)
     size_t bytesPerRow = CGBitmapContextGetBytesPerRow(context);
     *oBytesPerRow = bytesPerRow;
-    size_t bufferLength = bytesPerRow * height;
+    size_t bufferLength = sizeof(unsigned char) * bytesPerRow * height;
     
     unsigned char *newBitmap = NULL;
     
     if(bitmapData)
     {
-        newBitmap = (unsigned char *)malloc(sizeof(unsigned char) * bytesPerRow * height);
-        
-        if(newBitmap) {    // Copy the data
-            for(int i = 0; i < bufferLength; ++i) {
-                newBitmap[i] = bitmapData[i];
-            }
-        }
-        
-        free(bitmapData);
-        
+        newBitmap = (unsigned char *)malloc(bufferLength);
+        memcpy(newBitmap, bitmapData, bufferLength);
     } else {
         SDKLog(@"Error getting bitmap pixel data\n");
     }
@@ -303,7 +305,7 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     
     size_t bitsPerPixel = 32;
     size_t bitsPerComponent = 8;
-    size_t bytesPerPixel = bitsPerPixel / bitsPerComponent;
+    size_t bytesPerPixel = 4;
     
     size_t width = CGImageGetWidth(image);
     size_t height = CGImageGetHeight(image);
@@ -319,7 +321,7 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     }
     
     // Allocate memory for image data
-    bitmapData = (uint32_t *)malloc(bufferLength);
+    bitmapData = (uint32_t *)malloc(sizeof(uint32_t) * bufferLength);
     
     if(!bitmapData) {
         SDKLog(@"Error allocating memory for bitmap\n");
@@ -328,16 +330,9 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     }
     
     //Create bitmap context
-    
-    context = CGBitmapContextCreate(bitmapData,
-            width,
-            height,
-            bitsPerComponent,
-            bytesPerRow,
-            colorSpace,
-            kCGImageAlphaPremultipliedLast);    // RGBA
+    context = CGBitmapContextCreateWithData(bitmapData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast, CLOCGBitmapContextReleaseDataCallback, NULL);    // RGBA
     if(!context) {
-        free(bitmapData);
+        
         SDKLog(@"Bitmap context not created");
     }
     
@@ -353,7 +348,7 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     NSUInteger allCount = channel * w * h;
     
     // copy内存 , 释放被 CLOMetalReleaseDataCallback 接管
-    unsigned char *copy = malloc(allCount);
+    unsigned char *copy = malloc(sizeof(unsigned char) * allCount);
     memset(copy, 0, allCount);
     if (bytesPerPixel == 1)
     {
@@ -371,6 +366,7 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     }
     else {
         SDKAssert;
+        free(copy);
         return nil;
     }
     
@@ -423,5 +419,65 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
 //    [iiii getBytes:xxx length:allCount];
     
     return grayImage;
+}
+
++ (UIImage *)CLOMergeRGBAImage:(UIImage *)oriImg withMaskImage:(UIImage *)maskImg
+{
+    NSData *oriData = UIImagePNGRepresentation(oriImg);
+    NSData *maskData = UIImagePNGRepresentation(maskImg);
+
+    return [self.class CLOMergeRGBAData:oriData withMaskData:maskData];
+}
+
++ (UIImage *)CLOMergeRGBAData:(NSData *)ori withMaskData:(NSData *)mask
+{
+    MTKTextureLoader *loader = [[MTKTextureLoader alloc] initWithDevice:MTLCreateSystemDefaultDevice()];
+    
+    id<MTLTexture> oriTex = [loader newTextureWithData:ori options:nil error:nil];
+    id<MTLTexture> maskTex = [loader newTextureWithData:mask options:nil error:nil];
+    
+    
+    if (!oriTex || !maskTex)
+    {
+        SDKLog(@"Error: oriTex = %@ ; maskTex = %@", oriTex, maskTex);
+        return nil;
+    }
+    
+    unsigned char *oriPtr = [self.class CLOMTLTextureToBytes:oriTex];
+    if (!oriPtr)
+    {
+        SDKLog(@"Error: oriPtr = nil");
+        return nil;
+    }
+    unsigned char *maskPtr = [self.class CLOMTLTextureToBytes:maskTex];
+    if (!maskPtr)
+    {
+        SDKLog(@"Error: maskPtr = nil");
+        free(oriPtr);
+        return nil;
+    }
+    
+    UIImage *img = nil;
+    
+    size_t channel = 4;
+    size_t oriWidth = oriTex.width;
+    size_t oriHeight = oriTex.height;
+
+    for (int i = 0; i < oriWidth * oriHeight; ++i) {
+        // 按像素遍历 BGRA
+        // 交换一下顺序， BGRA => RGBA
+        unsigned char tmp = oriPtr[i * channel + 0];
+        oriPtr[i * channel + 0] = oriPtr[i * channel + 2];
+        oriPtr[i * channel + 2] = tmp;
+        
+        oriPtr[i * channel + 3] = maskPtr[i * channel + 3];
+    }
+    
+    img = [self.class CLOCreateRGBAImage:oriPtr withBytesPerPixel:channel width:oriWidth height:oriHeight];
+    
+    free(oriPtr);
+    free(maskPtr);
+    
+    return img;
 }
 @end
