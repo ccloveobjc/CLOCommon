@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (unsigned long)CLOGotSDKMakeMaxPixelsWithLimit:(unsigned long)limitPixel;
 
 /**
- *  获取至少大于size 的新size
+ *  获取不大于这个尺寸的最大值，并且保持比列
  */
 - (CGSize)CLOGotMoreThanLimit:(CGSize)size;
 

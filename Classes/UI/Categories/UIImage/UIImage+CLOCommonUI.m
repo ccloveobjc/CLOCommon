@@ -406,19 +406,20 @@ double cppCLORadiansToDegrees(double radians)
 
 - (CGSize)CLOGotMoreThanLimit:(CGSize)size
 {
+    CGFloat newBZ = self.size.width / self.size.height;
     NSInteger newW = self.size.width;
     NSInteger newH = self.size.height;
     
-    if (size.width > self.size.width) {
+    if (size.width < newW) {
         
         newW = size.width;
-        newH = newW / (self.size.width / self.size.height);
+        newH = newW / newBZ;
     }
     
-    if (size.height > self.size.height) {
+    if (size.height < newH) {
         
         newH = size.height;
-        newW = newH * (self.size.width / self.size.height);
+        newW = newH * newBZ;
     }
     
     return CGSizeMake(newW, newH);

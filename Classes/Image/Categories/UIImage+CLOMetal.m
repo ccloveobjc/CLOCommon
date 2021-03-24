@@ -421,15 +421,15 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
     return grayImage;
 }
 
-+ (UIImage *)CLOMergeRGBAImage:(UIImage *)oriImg withMaskImage:(UIImage *)maskImg
++ (UIImage *)CLOMergeRGBAImage:(UIImage *)oriImg withMaskImage:(UIImage *)maskImg withBlendColor:(UIColor *)detColor
 {
     NSData *oriData = UIImagePNGRepresentation(oriImg);
     NSData *maskData = UIImagePNGRepresentation(maskImg);
 
-    return [self.class CLOMergeRGBAData:oriData withMaskData:maskData];
+    return [self.class CLOMergeRGBAData:oriData withMaskData:maskData withBlendColor:detColor];
 }
 
-+ (UIImage *)CLOMergeRGBAData:(NSData *)ori withMaskData:(NSData *)mask
++ (UIImage *)CLOMergeRGBAData:(NSData *)ori withMaskData:(NSData *)mask withBlendColor:(UIColor *)detColor
 {
     MTKTextureLoader *loader = [[MTKTextureLoader alloc] initWithDevice:MTLCreateSystemDefaultDevice()];
     
@@ -470,7 +470,35 @@ static void CLOCGBitmapContextReleaseDataCallback(void * __nullable releaseInfo,
         oriPtr[i * channel + 0] = oriPtr[i * channel + 2];
         oriPtr[i * channel + 2] = tmp;
         
-        oriPtr[i * channel + 3] = maskPtr[i * channel + 3];
+        if (detColor) {
+            // 如果有值，需要blend
+            unsigned char alp = maskPtr[i * channel + 3]; // mask 的 alpha
+            float bz = alp / 255.0;
+            
+            if (bz != 1) {
+                
+                float r = oriPtr[i * channel + 0] / 255.0;
+                float g = oriPtr[i * channel + 1] / 255.0;
+                float b = oriPtr[i * channel + 2] / 255.0;
+                
+                CGFloat cR, cG, cB, cA;
+                [detColor getRed:&cR green:&cG blue:&cB alpha:&cA];
+                
+                float nR = (r * bz) + (cR * (1.0 - bz));
+                float nG = (g * bz) + (cG * (1.0 - bz));
+                float nB = (b * bz) + (cB * (1.0 - bz));
+                
+                oriPtr[i * channel + 0] = (unsigned char)(nR * 255.0);
+                oriPtr[i * channel + 1] = (unsigned char)(nG * 255.0);
+                oriPtr[i * channel + 2] = (unsigned char)(nB * 255.0);
+            }
+            
+            oriPtr[i * channel + 3] = 255;
+        }
+        else
+        {
+            oriPtr[i * channel + 3] = maskPtr[i * channel + 3];
+        }
     }
     
     img = [self.class CLOCreateRGBAImage:oriPtr withBytesPerPixel:channel width:oriWidth height:oriHeight];

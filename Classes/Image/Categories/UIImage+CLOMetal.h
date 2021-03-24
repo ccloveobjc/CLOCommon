@@ -37,9 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (UIImage *)CLOCreateRGBAImage:(unsigned char *)pixelDataX withBytesPerPixel:(NSUInteger)bytesPerPixel width:(NSUInteger)w height:(NSUInteger)h;
 
-+ (UIImage *)CLOMergeRGBAImage:(UIImage *)oriImg withMaskImage:(UIImage *)maskImg;
++ (UIImage *)CLOMergeRGBAImage:(UIImage *)oriImg withMaskImage:(UIImage *)maskImg withBlendColor:(nullable UIColor *)detColor;
 
-+ (UIImage *)CLOMergeRGBAData:(NSData *)ori withMaskData:(NSData *)mask;
++ (UIImage *)CLOMergeRGBAData:(NSData *)ori withMaskData:(NSData *)mask withBlendColor:(nullable UIColor *)detColor;
 
 @end
 
